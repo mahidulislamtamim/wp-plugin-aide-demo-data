@@ -1,0 +1,1637 @@
+{
+    "products":  [
+                     {
+                         "id":  "demo-product-001",
+                         "name":  "Smartphone Pro 001",
+                         "description":  "\u003cp\u003eSmartphone Pro demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "Modern smartphone for everyday use.",
+                         "regular_price":  "11.24",
+                         "sku":  "AIDE-SKU-001",
+                         "manage_stock":  true,
+                         "stock_quantity":  11,
+                         "categories":  [
+                                            "Electronics",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-01",
+                         "image":  "media/products/product-01.jpg"
+                     },
+                     {
+                         "id":  "demo-product-002",
+                         "name":  "Wireless Headphones 002",
+                         "description":  "\u003cp\u003eWireless Headphones demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "Over-ear wireless headphones.",
+                         "regular_price":  "12.49",
+                         "sku":  "AIDE-SKU-002",
+                         "manage_stock":  true,
+                         "stock_quantity":  12,
+                         "categories":  [
+                                            "Electronics",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-02",
+                         "image":  "media/products/product-02.jpg"
+                     },
+                     {
+                         "id":  "demo-product-003",
+                         "name":  "Insulated Water Bottle 003",
+                         "description":  "\u003cp\u003eInsulated Water Bottle demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "Reusable stainless water bottle.",
+                         "regular_price":  "13.74",
+                         "sku":  "AIDE-SKU-003",
+                         "manage_stock":  true,
+                         "stock_quantity":  13,
+                         "categories":  [
+                                            "Accessories",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-03",
+                         "image":  "media/products/product-03.jpg",
+                         "sale_price":  "11.68"
+                     },
+                     {
+                         "id":  "demo-product-004",
+                         "name":  "Smartwatch Classic 004",
+                         "description":  "\u003cp\u003eSmartwatch Classic demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "Fitness-ready smartwatch.",
+                         "regular_price":  "14.99",
+                         "sku":  "AIDE-SKU-004",
+                         "manage_stock":  true,
+                         "stock_quantity":  14,
+                         "categories":  [
+                                            "Electronics",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-04",
+                         "image":  "media/products/product-04.jpg"
+                     },
+                     {
+                         "id":  "demo-product-005",
+                         "name":  "Ultrabook Laptop 005",
+                         "description":  "\u003cp\u003eUltrabook Laptop demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "Lightweight laptop for work and travel.",
+                         "regular_price":  "16.24",
+                         "sku":  "AIDE-SKU-005",
+                         "manage_stock":  true,
+                         "stock_quantity":  15,
+                         "categories":  [
+                                            "Electronics",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-05",
+                         "image":  "media/products/product-05.jpg"
+                     },
+                     {
+                         "id":  "demo-product-006",
+                         "name":  "Running Sneakers 006",
+                         "description":  "\u003cp\u003eRunning Sneakers demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "Comfortable athletic sneakers.",
+                         "regular_price":  "17.49",
+                         "sku":  "AIDE-SKU-006",
+                         "manage_stock":  true,
+                         "stock_quantity":  16,
+                         "categories":  [
+                                            "Apparel",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-06",
+                         "image":  "media/products/product-06.jpg",
+                         "sale_price":  "14.87"
+                     },
+                     {
+                         "id":  "demo-product-007",
+                         "name":  "Travel Backpack 007",
+                         "description":  "\u003cp\u003eTravel Backpack demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "Durable everyday backpack.",
+                         "regular_price":  "18.74",
+                         "sku":  "AIDE-SKU-007",
+                         "manage_stock":  true,
+                         "stock_quantity":  17,
+                         "categories":  [
+                                            "Accessories",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-07",
+                         "image":  "media/products/product-07.jpg"
+                     },
+                     {
+                         "id":  "demo-product-008",
+                         "name":  "Polarized Sunglasses 008",
+                         "description":  "\u003cp\u003ePolarized Sunglasses demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "UV-protection sunglasses.",
+                         "regular_price":  "19.99",
+                         "sku":  "AIDE-SKU-008",
+                         "manage_stock":  true,
+                         "stock_quantity":  18,
+                         "categories":  [
+                                            "Accessories",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-08",
+                         "image":  "media/products/product-08.jpg"
+                     },
+                     {
+                         "id":  "demo-product-009",
+                         "name":  "Wireless Earbuds 009",
+                         "description":  "\u003cp\u003eWireless Earbuds demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "Compact true wireless earbuds.",
+                         "regular_price":  "21.24",
+                         "sku":  "AIDE-SKU-009",
+                         "manage_stock":  true,
+                         "stock_quantity":  19,
+                         "categories":  [
+                                            "Electronics",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-09",
+                         "image":  "media/products/product-09.jpg",
+                         "sale_price":  "18.05"
+                     },
+                     {
+                         "id":  "demo-product-010",
+                         "name":  "Mirrorless Camera 010",
+                         "description":  "\u003cp\u003eMirrorless Camera demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "Compact camera for creators.",
+                         "regular_price":  "22.49",
+                         "sku":  "AIDE-SKU-010",
+                         "manage_stock":  true,
+                         "stock_quantity":  20,
+                         "categories":  [
+                                            "Electronics",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-10",
+                         "image":  "media/products/product-10.jpg"
+                     },
+                     {
+                         "id":  "demo-product-011",
+                         "name":  "Mechanical Keyboard 011",
+                         "description":  "\u003cp\u003eMechanical Keyboard demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "Tactile desktop keyboard.",
+                         "regular_price":  "23.74",
+                         "sku":  "AIDE-SKU-011",
+                         "manage_stock":  true,
+                         "stock_quantity":  21,
+                         "categories":  [
+                                            "Electronics",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-11",
+                         "image":  "media/products/product-11.jpg"
+                     },
+                     {
+                         "id":  "demo-product-012",
+                         "name":  "Ceramic Coffee Mug 012",
+                         "description":  "\u003cp\u003eCeramic Coffee Mug demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "Classic ceramic mug.",
+                         "regular_price":  "24.99",
+                         "sku":  "AIDE-SKU-012",
+                         "manage_stock":  true,
+                         "stock_quantity":  22,
+                         "categories":  [
+                                            "Home",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-12",
+                         "image":  "media/products/product-12.jpg",
+                         "sale_price":  "21.24"
+                     },
+                     {
+                         "id":  "demo-product-013",
+                         "name":  "LED Desk Lamp 013",
+                         "description":  "\u003cp\u003eLED Desk Lamp demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "Adjustable LED desk lamp.",
+                         "regular_price":  "26.24",
+                         "sku":  "AIDE-SKU-013",
+                         "manage_stock":  true,
+                         "stock_quantity":  23,
+                         "categories":  [
+                                            "Home",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-13",
+                         "image":  "media/products/product-13.jpg"
+                     },
+                     {
+                         "id":  "demo-product-014",
+                         "name":  "Wireless Mouse 014",
+                         "description":  "\u003cp\u003eWireless Mouse demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "Ergonomic wireless mouse.",
+                         "regular_price":  "27.49",
+                         "sku":  "AIDE-SKU-014",
+                         "manage_stock":  true,
+                         "stock_quantity":  24,
+                         "categories":  [
+                                            "Electronics",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-14",
+                         "image":  "media/products/product-14.jpg"
+                     },
+                     {
+                         "id":  "demo-product-015",
+                         "name":  "Tablet 10-inch 015",
+                         "description":  "\u003cp\u003eTablet 10-inch demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "Portable tablet for media and notes.",
+                         "regular_price":  "28.74",
+                         "sku":  "AIDE-SKU-015",
+                         "manage_stock":  true,
+                         "stock_quantity":  25,
+                         "categories":  [
+                                            "Electronics",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-15",
+                         "image":  "media/products/product-15.jpg",
+                         "sale_price":  "24.43"
+                     },
+                     {
+                         "id":  "demo-product-016",
+                         "name":  "Portable Bluetooth Speaker 016",
+                         "description":  "\u003cp\u003ePortable Bluetooth Speaker demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "Compact wireless speaker.",
+                         "regular_price":  "29.99",
+                         "sku":  "AIDE-SKU-016",
+                         "manage_stock":  true,
+                         "stock_quantity":  26,
+                         "categories":  [
+                                            "Electronics",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-16",
+                         "image":  "media/products/product-16.jpg"
+                     },
+                     {
+                         "id":  "demo-product-017",
+                         "name":  "Fitness Tracker Band 017",
+                         "description":  "\u003cp\u003eFitness Tracker Band demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "Activity and sleep tracker.",
+                         "regular_price":  "31.24",
+                         "sku":  "AIDE-SKU-017",
+                         "manage_stock":  true,
+                         "stock_quantity":  27,
+                         "categories":  [
+                                            "Electronics",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-17",
+                         "image":  "media/products/product-17.jpg"
+                     },
+                     {
+                         "id":  "demo-product-018",
+                         "name":  "Fast Charge Power Bank 018",
+                         "description":  "\u003cp\u003eFast Charge Power Bank demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "Portable USB power bank.",
+                         "regular_price":  "32.49",
+                         "sku":  "AIDE-SKU-018",
+                         "manage_stock":  true,
+                         "stock_quantity":  28,
+                         "categories":  [
+                                            "Accessories",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-18",
+                         "image":  "media/products/product-18.jpg",
+                         "sale_price":  "27.62"
+                     },
+                     {
+                         "id":  "demo-product-019",
+                         "name":  "Braided USB Cable 019",
+                         "description":  "\u003cp\u003eBraided USB Cable demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "Durable charging cable.",
+                         "regular_price":  "33.74",
+                         "sku":  "AIDE-SKU-019",
+                         "manage_stock":  true,
+                         "stock_quantity":  29,
+                         "categories":  [
+                                            "Accessories",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-19",
+                         "image":  "media/products/product-19.jpg"
+                     },
+                     {
+                         "id":  "demo-product-020",
+                         "name":  "Hardcover Notebook 020",
+                         "description":  "\u003cp\u003eHardcover Notebook demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "Lined hardcover journal.",
+                         "regular_price":  "34.99",
+                         "sku":  "AIDE-SKU-020",
+                         "manage_stock":  true,
+                         "stock_quantity":  30,
+                         "categories":  [
+                                            "Stationery",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-20",
+                         "image":  "media/products/product-20.jpg"
+                     },
+                     {
+                         "id":  "demo-product-021",
+                         "name":  "Smartphone Pro 021",
+                         "description":  "\u003cp\u003eSmartphone Pro demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "Modern smartphone for everyday use.",
+                         "regular_price":  "36.24",
+                         "sku":  "AIDE-SKU-021",
+                         "manage_stock":  true,
+                         "stock_quantity":  31,
+                         "categories":  [
+                                            "Electronics",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-01",
+                         "image":  "media/products/product-01.jpg",
+                         "sale_price":  "30.80"
+                     },
+                     {
+                         "id":  "demo-product-022",
+                         "name":  "Wireless Headphones 022",
+                         "description":  "\u003cp\u003eWireless Headphones demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "Over-ear wireless headphones.",
+                         "regular_price":  "37.49",
+                         "sku":  "AIDE-SKU-022",
+                         "manage_stock":  true,
+                         "stock_quantity":  32,
+                         "categories":  [
+                                            "Electronics",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-02",
+                         "image":  "media/products/product-02.jpg"
+                     },
+                     {
+                         "id":  "demo-product-023",
+                         "name":  "Insulated Water Bottle 023",
+                         "description":  "\u003cp\u003eInsulated Water Bottle demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "Reusable stainless water bottle.",
+                         "regular_price":  "38.74",
+                         "sku":  "AIDE-SKU-023",
+                         "manage_stock":  true,
+                         "stock_quantity":  33,
+                         "categories":  [
+                                            "Accessories",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-03",
+                         "image":  "media/products/product-03.jpg"
+                     },
+                     {
+                         "id":  "demo-product-024",
+                         "name":  "Smartwatch Classic 024",
+                         "description":  "\u003cp\u003eSmartwatch Classic demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "Fitness-ready smartwatch.",
+                         "regular_price":  "39.99",
+                         "sku":  "AIDE-SKU-024",
+                         "manage_stock":  true,
+                         "stock_quantity":  34,
+                         "categories":  [
+                                            "Electronics",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-04",
+                         "image":  "media/products/product-04.jpg",
+                         "sale_price":  "33.99"
+                     },
+                     {
+                         "id":  "demo-product-025",
+                         "name":  "Ultrabook Laptop 025",
+                         "description":  "\u003cp\u003eUltrabook Laptop demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "Lightweight laptop for work and travel.",
+                         "regular_price":  "41.24",
+                         "sku":  "AIDE-SKU-025",
+                         "manage_stock":  true,
+                         "stock_quantity":  35,
+                         "categories":  [
+                                            "Electronics",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-05",
+                         "image":  "media/products/product-05.jpg"
+                     },
+                     {
+                         "id":  "demo-product-026",
+                         "name":  "Running Sneakers 026",
+                         "description":  "\u003cp\u003eRunning Sneakers demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "Comfortable athletic sneakers.",
+                         "regular_price":  "42.49",
+                         "sku":  "AIDE-SKU-026",
+                         "manage_stock":  true,
+                         "stock_quantity":  36,
+                         "categories":  [
+                                            "Apparel",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-06",
+                         "image":  "media/products/product-06.jpg"
+                     },
+                     {
+                         "id":  "demo-product-027",
+                         "name":  "Travel Backpack 027",
+                         "description":  "\u003cp\u003eTravel Backpack demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "Durable everyday backpack.",
+                         "regular_price":  "43.74",
+                         "sku":  "AIDE-SKU-027",
+                         "manage_stock":  true,
+                         "stock_quantity":  37,
+                         "categories":  [
+                                            "Accessories",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-07",
+                         "image":  "media/products/product-07.jpg",
+                         "sale_price":  "37.18"
+                     },
+                     {
+                         "id":  "demo-product-028",
+                         "name":  "Polarized Sunglasses 028",
+                         "description":  "\u003cp\u003ePolarized Sunglasses demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "UV-protection sunglasses.",
+                         "regular_price":  "44.99",
+                         "sku":  "AIDE-SKU-028",
+                         "manage_stock":  true,
+                         "stock_quantity":  38,
+                         "categories":  [
+                                            "Accessories",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-08",
+                         "image":  "media/products/product-08.jpg"
+                     },
+                     {
+                         "id":  "demo-product-029",
+                         "name":  "Wireless Earbuds 029",
+                         "description":  "\u003cp\u003eWireless Earbuds demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "Compact true wireless earbuds.",
+                         "regular_price":  "46.24",
+                         "sku":  "AIDE-SKU-029",
+                         "manage_stock":  true,
+                         "stock_quantity":  39,
+                         "categories":  [
+                                            "Electronics",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-09",
+                         "image":  "media/products/product-09.jpg"
+                     },
+                     {
+                         "id":  "demo-product-030",
+                         "name":  "Mirrorless Camera 030",
+                         "description":  "\u003cp\u003eMirrorless Camera demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "Compact camera for creators.",
+                         "regular_price":  "47.49",
+                         "sku":  "AIDE-SKU-030",
+                         "manage_stock":  true,
+                         "stock_quantity":  40,
+                         "categories":  [
+                                            "Electronics",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-10",
+                         "image":  "media/products/product-10.jpg",
+                         "sale_price":  "40.37"
+                     },
+                     {
+                         "id":  "demo-product-031",
+                         "name":  "Mechanical Keyboard 031",
+                         "description":  "\u003cp\u003eMechanical Keyboard demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "Tactile desktop keyboard.",
+                         "regular_price":  "48.74",
+                         "sku":  "AIDE-SKU-031",
+                         "manage_stock":  true,
+                         "stock_quantity":  41,
+                         "categories":  [
+                                            "Electronics",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-11",
+                         "image":  "media/products/product-11.jpg"
+                     },
+                     {
+                         "id":  "demo-product-032",
+                         "name":  "Ceramic Coffee Mug 032",
+                         "description":  "\u003cp\u003eCeramic Coffee Mug demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "Classic ceramic mug.",
+                         "regular_price":  "49.99",
+                         "sku":  "AIDE-SKU-032",
+                         "manage_stock":  true,
+                         "stock_quantity":  42,
+                         "categories":  [
+                                            "Home",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-12",
+                         "image":  "media/products/product-12.jpg"
+                     },
+                     {
+                         "id":  "demo-product-033",
+                         "name":  "LED Desk Lamp 033",
+                         "description":  "\u003cp\u003eLED Desk Lamp demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "Adjustable LED desk lamp.",
+                         "regular_price":  "51.24",
+                         "sku":  "AIDE-SKU-033",
+                         "manage_stock":  true,
+                         "stock_quantity":  43,
+                         "categories":  [
+                                            "Home",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-13",
+                         "image":  "media/products/product-13.jpg",
+                         "sale_price":  "43.55"
+                     },
+                     {
+                         "id":  "demo-product-034",
+                         "name":  "Wireless Mouse 034",
+                         "description":  "\u003cp\u003eWireless Mouse demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "Ergonomic wireless mouse.",
+                         "regular_price":  "52.49",
+                         "sku":  "AIDE-SKU-034",
+                         "manage_stock":  true,
+                         "stock_quantity":  44,
+                         "categories":  [
+                                            "Electronics",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-14",
+                         "image":  "media/products/product-14.jpg"
+                     },
+                     {
+                         "id":  "demo-product-035",
+                         "name":  "Tablet 10-inch 035",
+                         "description":  "\u003cp\u003eTablet 10-inch demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "Portable tablet for media and notes.",
+                         "regular_price":  "53.74",
+                         "sku":  "AIDE-SKU-035",
+                         "manage_stock":  true,
+                         "stock_quantity":  45,
+                         "categories":  [
+                                            "Electronics",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-15",
+                         "image":  "media/products/product-15.jpg"
+                     },
+                     {
+                         "id":  "demo-product-036",
+                         "name":  "Portable Bluetooth Speaker 036",
+                         "description":  "\u003cp\u003ePortable Bluetooth Speaker demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "Compact wireless speaker.",
+                         "regular_price":  "54.99",
+                         "sku":  "AIDE-SKU-036",
+                         "manage_stock":  true,
+                         "stock_quantity":  46,
+                         "categories":  [
+                                            "Electronics",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-16",
+                         "image":  "media/products/product-16.jpg",
+                         "sale_price":  "46.74"
+                     },
+                     {
+                         "id":  "demo-product-037",
+                         "name":  "Fitness Tracker Band 037",
+                         "description":  "\u003cp\u003eFitness Tracker Band demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "Activity and sleep tracker.",
+                         "regular_price":  "56.24",
+                         "sku":  "AIDE-SKU-037",
+                         "manage_stock":  true,
+                         "stock_quantity":  47,
+                         "categories":  [
+                                            "Electronics",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-17",
+                         "image":  "media/products/product-17.jpg"
+                     },
+                     {
+                         "id":  "demo-product-038",
+                         "name":  "Fast Charge Power Bank 038",
+                         "description":  "\u003cp\u003eFast Charge Power Bank demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "Portable USB power bank.",
+                         "regular_price":  "57.49",
+                         "sku":  "AIDE-SKU-038",
+                         "manage_stock":  true,
+                         "stock_quantity":  48,
+                         "categories":  [
+                                            "Accessories",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-18",
+                         "image":  "media/products/product-18.jpg"
+                     },
+                     {
+                         "id":  "demo-product-039",
+                         "name":  "Braided USB Cable 039",
+                         "description":  "\u003cp\u003eBraided USB Cable demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "Durable charging cable.",
+                         "regular_price":  "58.74",
+                         "sku":  "AIDE-SKU-039",
+                         "manage_stock":  true,
+                         "stock_quantity":  49,
+                         "categories":  [
+                                            "Accessories",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-19",
+                         "image":  "media/products/product-19.jpg",
+                         "sale_price":  "49.93"
+                     },
+                     {
+                         "id":  "demo-product-040",
+                         "name":  "Hardcover Notebook 040",
+                         "description":  "\u003cp\u003eHardcover Notebook demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "Lined hardcover journal.",
+                         "regular_price":  "59.99",
+                         "sku":  "AIDE-SKU-040",
+                         "manage_stock":  true,
+                         "stock_quantity":  50,
+                         "categories":  [
+                                            "Stationery",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-20",
+                         "image":  "media/products/product-20.jpg"
+                     },
+                     {
+                         "id":  "demo-product-041",
+                         "name":  "Smartphone Pro 041",
+                         "description":  "\u003cp\u003eSmartphone Pro demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "Modern smartphone for everyday use.",
+                         "regular_price":  "61.24",
+                         "sku":  "AIDE-SKU-041",
+                         "manage_stock":  true,
+                         "stock_quantity":  51,
+                         "categories":  [
+                                            "Electronics",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-01",
+                         "image":  "media/products/product-01.jpg"
+                     },
+                     {
+                         "id":  "demo-product-042",
+                         "name":  "Wireless Headphones 042",
+                         "description":  "\u003cp\u003eWireless Headphones demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "Over-ear wireless headphones.",
+                         "regular_price":  "62.49",
+                         "sku":  "AIDE-SKU-042",
+                         "manage_stock":  true,
+                         "stock_quantity":  52,
+                         "categories":  [
+                                            "Electronics",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-02",
+                         "image":  "media/products/product-02.jpg",
+                         "sale_price":  "53.12"
+                     },
+                     {
+                         "id":  "demo-product-043",
+                         "name":  "Insulated Water Bottle 043",
+                         "description":  "\u003cp\u003eInsulated Water Bottle demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "Reusable stainless water bottle.",
+                         "regular_price":  "63.74",
+                         "sku":  "AIDE-SKU-043",
+                         "manage_stock":  true,
+                         "stock_quantity":  53,
+                         "categories":  [
+                                            "Accessories",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-03",
+                         "image":  "media/products/product-03.jpg"
+                     },
+                     {
+                         "id":  "demo-product-044",
+                         "name":  "Smartwatch Classic 044",
+                         "description":  "\u003cp\u003eSmartwatch Classic demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "Fitness-ready smartwatch.",
+                         "regular_price":  "64.99",
+                         "sku":  "AIDE-SKU-044",
+                         "manage_stock":  true,
+                         "stock_quantity":  54,
+                         "categories":  [
+                                            "Electronics",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-04",
+                         "image":  "media/products/product-04.jpg"
+                     },
+                     {
+                         "id":  "demo-product-045",
+                         "name":  "Ultrabook Laptop 045",
+                         "description":  "\u003cp\u003eUltrabook Laptop demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "Lightweight laptop for work and travel.",
+                         "regular_price":  "66.24",
+                         "sku":  "AIDE-SKU-045",
+                         "manage_stock":  true,
+                         "stock_quantity":  55,
+                         "categories":  [
+                                            "Electronics",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-05",
+                         "image":  "media/products/product-05.jpg",
+                         "sale_price":  "56.30"
+                     },
+                     {
+                         "id":  "demo-product-046",
+                         "name":  "Running Sneakers 046",
+                         "description":  "\u003cp\u003eRunning Sneakers demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "Comfortable athletic sneakers.",
+                         "regular_price":  "67.49",
+                         "sku":  "AIDE-SKU-046",
+                         "manage_stock":  true,
+                         "stock_quantity":  56,
+                         "categories":  [
+                                            "Apparel",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-06",
+                         "image":  "media/products/product-06.jpg"
+                     },
+                     {
+                         "id":  "demo-product-047",
+                         "name":  "Travel Backpack 047",
+                         "description":  "\u003cp\u003eTravel Backpack demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "Durable everyday backpack.",
+                         "regular_price":  "68.74",
+                         "sku":  "AIDE-SKU-047",
+                         "manage_stock":  true,
+                         "stock_quantity":  57,
+                         "categories":  [
+                                            "Accessories",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-07",
+                         "image":  "media/products/product-07.jpg"
+                     },
+                     {
+                         "id":  "demo-product-048",
+                         "name":  "Polarized Sunglasses 048",
+                         "description":  "\u003cp\u003ePolarized Sunglasses demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "UV-protection sunglasses.",
+                         "regular_price":  "69.99",
+                         "sku":  "AIDE-SKU-048",
+                         "manage_stock":  true,
+                         "stock_quantity":  58,
+                         "categories":  [
+                                            "Accessories",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-08",
+                         "image":  "media/products/product-08.jpg",
+                         "sale_price":  "59.49"
+                     },
+                     {
+                         "id":  "demo-product-049",
+                         "name":  "Wireless Earbuds 049",
+                         "description":  "\u003cp\u003eWireless Earbuds demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "Compact true wireless earbuds.",
+                         "regular_price":  "71.24",
+                         "sku":  "AIDE-SKU-049",
+                         "manage_stock":  true,
+                         "stock_quantity":  59,
+                         "categories":  [
+                                            "Electronics",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-09",
+                         "image":  "media/products/product-09.jpg"
+                     },
+                     {
+                         "id":  "demo-product-050",
+                         "name":  "Mirrorless Camera 050",
+                         "description":  "\u003cp\u003eMirrorless Camera demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "Compact camera for creators.",
+                         "regular_price":  "72.49",
+                         "sku":  "AIDE-SKU-050",
+                         "manage_stock":  true,
+                         "stock_quantity":  60,
+                         "categories":  [
+                                            "Electronics",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-10",
+                         "image":  "media/products/product-10.jpg"
+                     },
+                     {
+                         "id":  "demo-product-051",
+                         "name":  "Mechanical Keyboard 051",
+                         "description":  "\u003cp\u003eMechanical Keyboard demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "Tactile desktop keyboard.",
+                         "regular_price":  "73.74",
+                         "sku":  "AIDE-SKU-051",
+                         "manage_stock":  true,
+                         "stock_quantity":  61,
+                         "categories":  [
+                                            "Electronics",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-11",
+                         "image":  "media/products/product-11.jpg",
+                         "sale_price":  "62.68"
+                     },
+                     {
+                         "id":  "demo-product-052",
+                         "name":  "Ceramic Coffee Mug 052",
+                         "description":  "\u003cp\u003eCeramic Coffee Mug demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "Classic ceramic mug.",
+                         "regular_price":  "74.99",
+                         "sku":  "AIDE-SKU-052",
+                         "manage_stock":  true,
+                         "stock_quantity":  62,
+                         "categories":  [
+                                            "Home",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-12",
+                         "image":  "media/products/product-12.jpg"
+                     },
+                     {
+                         "id":  "demo-product-053",
+                         "name":  "LED Desk Lamp 053",
+                         "description":  "\u003cp\u003eLED Desk Lamp demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "Adjustable LED desk lamp.",
+                         "regular_price":  "76.24",
+                         "sku":  "AIDE-SKU-053",
+                         "manage_stock":  true,
+                         "stock_quantity":  63,
+                         "categories":  [
+                                            "Home",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-13",
+                         "image":  "media/products/product-13.jpg"
+                     },
+                     {
+                         "id":  "demo-product-054",
+                         "name":  "Wireless Mouse 054",
+                         "description":  "\u003cp\u003eWireless Mouse demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "Ergonomic wireless mouse.",
+                         "regular_price":  "77.49",
+                         "sku":  "AIDE-SKU-054",
+                         "manage_stock":  true,
+                         "stock_quantity":  64,
+                         "categories":  [
+                                            "Electronics",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-14",
+                         "image":  "media/products/product-14.jpg",
+                         "sale_price":  "65.87"
+                     },
+                     {
+                         "id":  "demo-product-055",
+                         "name":  "Tablet 10-inch 055",
+                         "description":  "\u003cp\u003eTablet 10-inch demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "Portable tablet for media and notes.",
+                         "regular_price":  "78.74",
+                         "sku":  "AIDE-SKU-055",
+                         "manage_stock":  true,
+                         "stock_quantity":  65,
+                         "categories":  [
+                                            "Electronics",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-15",
+                         "image":  "media/products/product-15.jpg"
+                     },
+                     {
+                         "id":  "demo-product-056",
+                         "name":  "Portable Bluetooth Speaker 056",
+                         "description":  "\u003cp\u003ePortable Bluetooth Speaker demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "Compact wireless speaker.",
+                         "regular_price":  "79.99",
+                         "sku":  "AIDE-SKU-056",
+                         "manage_stock":  true,
+                         "stock_quantity":  66,
+                         "categories":  [
+                                            "Electronics",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-16",
+                         "image":  "media/products/product-16.jpg"
+                     },
+                     {
+                         "id":  "demo-product-057",
+                         "name":  "Fitness Tracker Band 057",
+                         "description":  "\u003cp\u003eFitness Tracker Band demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "Activity and sleep tracker.",
+                         "regular_price":  "81.24",
+                         "sku":  "AIDE-SKU-057",
+                         "manage_stock":  true,
+                         "stock_quantity":  67,
+                         "categories":  [
+                                            "Electronics",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-17",
+                         "image":  "media/products/product-17.jpg",
+                         "sale_price":  "69.05"
+                     },
+                     {
+                         "id":  "demo-product-058",
+                         "name":  "Fast Charge Power Bank 058",
+                         "description":  "\u003cp\u003eFast Charge Power Bank demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "Portable USB power bank.",
+                         "regular_price":  "82.49",
+                         "sku":  "AIDE-SKU-058",
+                         "manage_stock":  true,
+                         "stock_quantity":  68,
+                         "categories":  [
+                                            "Accessories",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-18",
+                         "image":  "media/products/product-18.jpg"
+                     },
+                     {
+                         "id":  "demo-product-059",
+                         "name":  "Braided USB Cable 059",
+                         "description":  "\u003cp\u003eBraided USB Cable demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "Durable charging cable.",
+                         "regular_price":  "83.74",
+                         "sku":  "AIDE-SKU-059",
+                         "manage_stock":  true,
+                         "stock_quantity":  69,
+                         "categories":  [
+                                            "Accessories",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-19",
+                         "image":  "media/products/product-19.jpg"
+                     },
+                     {
+                         "id":  "demo-product-060",
+                         "name":  "Hardcover Notebook 060",
+                         "description":  "\u003cp\u003eHardcover Notebook demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "Lined hardcover journal.",
+                         "regular_price":  "84.99",
+                         "sku":  "AIDE-SKU-060",
+                         "manage_stock":  true,
+                         "stock_quantity":  70,
+                         "categories":  [
+                                            "Stationery",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-20",
+                         "image":  "media/products/product-20.jpg",
+                         "sale_price":  "72.24"
+                     },
+                     {
+                         "id":  "demo-product-061",
+                         "name":  "Smartphone Pro 061",
+                         "description":  "\u003cp\u003eSmartphone Pro demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "Modern smartphone for everyday use.",
+                         "regular_price":  "86.24",
+                         "sku":  "AIDE-SKU-061",
+                         "manage_stock":  true,
+                         "stock_quantity":  71,
+                         "categories":  [
+                                            "Electronics",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-01",
+                         "image":  "media/products/product-01.jpg"
+                     },
+                     {
+                         "id":  "demo-product-062",
+                         "name":  "Wireless Headphones 062",
+                         "description":  "\u003cp\u003eWireless Headphones demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "Over-ear wireless headphones.",
+                         "regular_price":  "87.49",
+                         "sku":  "AIDE-SKU-062",
+                         "manage_stock":  true,
+                         "stock_quantity":  72,
+                         "categories":  [
+                                            "Electronics",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-02",
+                         "image":  "media/products/product-02.jpg"
+                     },
+                     {
+                         "id":  "demo-product-063",
+                         "name":  "Insulated Water Bottle 063",
+                         "description":  "\u003cp\u003eInsulated Water Bottle demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "Reusable stainless water bottle.",
+                         "regular_price":  "88.74",
+                         "sku":  "AIDE-SKU-063",
+                         "manage_stock":  true,
+                         "stock_quantity":  73,
+                         "categories":  [
+                                            "Accessories",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-03",
+                         "image":  "media/products/product-03.jpg",
+                         "sale_price":  "75.43"
+                     },
+                     {
+                         "id":  "demo-product-064",
+                         "name":  "Smartwatch Classic 064",
+                         "description":  "\u003cp\u003eSmartwatch Classic demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "Fitness-ready smartwatch.",
+                         "regular_price":  "89.99",
+                         "sku":  "AIDE-SKU-064",
+                         "manage_stock":  true,
+                         "stock_quantity":  74,
+                         "categories":  [
+                                            "Electronics",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-04",
+                         "image":  "media/products/product-04.jpg"
+                     },
+                     {
+                         "id":  "demo-product-065",
+                         "name":  "Ultrabook Laptop 065",
+                         "description":  "\u003cp\u003eUltrabook Laptop demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "Lightweight laptop for work and travel.",
+                         "regular_price":  "91.24",
+                         "sku":  "AIDE-SKU-065",
+                         "manage_stock":  true,
+                         "stock_quantity":  75,
+                         "categories":  [
+                                            "Electronics",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-05",
+                         "image":  "media/products/product-05.jpg"
+                     },
+                     {
+                         "id":  "demo-product-066",
+                         "name":  "Running Sneakers 066",
+                         "description":  "\u003cp\u003eRunning Sneakers demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "Comfortable athletic sneakers.",
+                         "regular_price":  "92.49",
+                         "sku":  "AIDE-SKU-066",
+                         "manage_stock":  true,
+                         "stock_quantity":  76,
+                         "categories":  [
+                                            "Apparel",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-06",
+                         "image":  "media/products/product-06.jpg",
+                         "sale_price":  "78.62"
+                     },
+                     {
+                         "id":  "demo-product-067",
+                         "name":  "Travel Backpack 067",
+                         "description":  "\u003cp\u003eTravel Backpack demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "Durable everyday backpack.",
+                         "regular_price":  "93.74",
+                         "sku":  "AIDE-SKU-067",
+                         "manage_stock":  true,
+                         "stock_quantity":  77,
+                         "categories":  [
+                                            "Accessories",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-07",
+                         "image":  "media/products/product-07.jpg"
+                     },
+                     {
+                         "id":  "demo-product-068",
+                         "name":  "Polarized Sunglasses 068",
+                         "description":  "\u003cp\u003ePolarized Sunglasses demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "UV-protection sunglasses.",
+                         "regular_price":  "94.99",
+                         "sku":  "AIDE-SKU-068",
+                         "manage_stock":  true,
+                         "stock_quantity":  78,
+                         "categories":  [
+                                            "Accessories",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-08",
+                         "image":  "media/products/product-08.jpg"
+                     },
+                     {
+                         "id":  "demo-product-069",
+                         "name":  "Wireless Earbuds 069",
+                         "description":  "\u003cp\u003eWireless Earbuds demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "Compact true wireless earbuds.",
+                         "regular_price":  "96.24",
+                         "sku":  "AIDE-SKU-069",
+                         "manage_stock":  true,
+                         "stock_quantity":  79,
+                         "categories":  [
+                                            "Electronics",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-09",
+                         "image":  "media/products/product-09.jpg",
+                         "sale_price":  "81.80"
+                     },
+                     {
+                         "id":  "demo-product-070",
+                         "name":  "Mirrorless Camera 070",
+                         "description":  "\u003cp\u003eMirrorless Camera demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "Compact camera for creators.",
+                         "regular_price":  "97.49",
+                         "sku":  "AIDE-SKU-070",
+                         "manage_stock":  true,
+                         "stock_quantity":  80,
+                         "categories":  [
+                                            "Electronics",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-10",
+                         "image":  "media/products/product-10.jpg"
+                     },
+                     {
+                         "id":  "demo-product-071",
+                         "name":  "Mechanical Keyboard 071",
+                         "description":  "\u003cp\u003eMechanical Keyboard demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "Tactile desktop keyboard.",
+                         "regular_price":  "98.74",
+                         "sku":  "AIDE-SKU-071",
+                         "manage_stock":  true,
+                         "stock_quantity":  81,
+                         "categories":  [
+                                            "Electronics",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-11",
+                         "image":  "media/products/product-11.jpg"
+                     },
+                     {
+                         "id":  "demo-product-072",
+                         "name":  "Ceramic Coffee Mug 072",
+                         "description":  "\u003cp\u003eCeramic Coffee Mug demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "Classic ceramic mug.",
+                         "regular_price":  "99.99",
+                         "sku":  "AIDE-SKU-072",
+                         "manage_stock":  true,
+                         "stock_quantity":  82,
+                         "categories":  [
+                                            "Home",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-12",
+                         "image":  "media/products/product-12.jpg",
+                         "sale_price":  "84.99"
+                     },
+                     {
+                         "id":  "demo-product-073",
+                         "name":  "LED Desk Lamp 073",
+                         "description":  "\u003cp\u003eLED Desk Lamp demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "Adjustable LED desk lamp.",
+                         "regular_price":  "101.24",
+                         "sku":  "AIDE-SKU-073",
+                         "manage_stock":  true,
+                         "stock_quantity":  83,
+                         "categories":  [
+                                            "Home",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-13",
+                         "image":  "media/products/product-13.jpg"
+                     },
+                     {
+                         "id":  "demo-product-074",
+                         "name":  "Wireless Mouse 074",
+                         "description":  "\u003cp\u003eWireless Mouse demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "Ergonomic wireless mouse.",
+                         "regular_price":  "102.49",
+                         "sku":  "AIDE-SKU-074",
+                         "manage_stock":  true,
+                         "stock_quantity":  84,
+                         "categories":  [
+                                            "Electronics",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-14",
+                         "image":  "media/products/product-14.jpg"
+                     },
+                     {
+                         "id":  "demo-product-075",
+                         "name":  "Tablet 10-inch 075",
+                         "description":  "\u003cp\u003eTablet 10-inch demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "Portable tablet for media and notes.",
+                         "regular_price":  "103.74",
+                         "sku":  "AIDE-SKU-075",
+                         "manage_stock":  true,
+                         "stock_quantity":  85,
+                         "categories":  [
+                                            "Electronics",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-15",
+                         "image":  "media/products/product-15.jpg",
+                         "sale_price":  "88.18"
+                     },
+                     {
+                         "id":  "demo-product-076",
+                         "name":  "Portable Bluetooth Speaker 076",
+                         "description":  "\u003cp\u003ePortable Bluetooth Speaker demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "Compact wireless speaker.",
+                         "regular_price":  "104.99",
+                         "sku":  "AIDE-SKU-076",
+                         "manage_stock":  true,
+                         "stock_quantity":  86,
+                         "categories":  [
+                                            "Electronics",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-16",
+                         "image":  "media/products/product-16.jpg"
+                     },
+                     {
+                         "id":  "demo-product-077",
+                         "name":  "Fitness Tracker Band 077",
+                         "description":  "\u003cp\u003eFitness Tracker Band demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "Activity and sleep tracker.",
+                         "regular_price":  "106.24",
+                         "sku":  "AIDE-SKU-077",
+                         "manage_stock":  true,
+                         "stock_quantity":  87,
+                         "categories":  [
+                                            "Electronics",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-17",
+                         "image":  "media/products/product-17.jpg"
+                     },
+                     {
+                         "id":  "demo-product-078",
+                         "name":  "Fast Charge Power Bank 078",
+                         "description":  "\u003cp\u003eFast Charge Power Bank demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "Portable USB power bank.",
+                         "regular_price":  "107.49",
+                         "sku":  "AIDE-SKU-078",
+                         "manage_stock":  true,
+                         "stock_quantity":  88,
+                         "categories":  [
+                                            "Accessories",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-18",
+                         "image":  "media/products/product-18.jpg",
+                         "sale_price":  "91.37"
+                     },
+                     {
+                         "id":  "demo-product-079",
+                         "name":  "Braided USB Cable 079",
+                         "description":  "\u003cp\u003eBraided USB Cable demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "Durable charging cable.",
+                         "regular_price":  "108.74",
+                         "sku":  "AIDE-SKU-079",
+                         "manage_stock":  true,
+                         "stock_quantity":  89,
+                         "categories":  [
+                                            "Accessories",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-19",
+                         "image":  "media/products/product-19.jpg"
+                     },
+                     {
+                         "id":  "demo-product-080",
+                         "name":  "Hardcover Notebook 080",
+                         "description":  "\u003cp\u003eHardcover Notebook demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "Lined hardcover journal.",
+                         "regular_price":  "109.99",
+                         "sku":  "AIDE-SKU-080",
+                         "manage_stock":  true,
+                         "stock_quantity":  90,
+                         "categories":  [
+                                            "Stationery",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-20",
+                         "image":  "media/products/product-20.jpg"
+                     },
+                     {
+                         "id":  "demo-product-081",
+                         "name":  "Smartphone Pro 081",
+                         "description":  "\u003cp\u003eSmartphone Pro demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "Modern smartphone for everyday use.",
+                         "regular_price":  "111.24",
+                         "sku":  "AIDE-SKU-081",
+                         "manage_stock":  true,
+                         "stock_quantity":  91,
+                         "categories":  [
+                                            "Electronics",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-01",
+                         "image":  "media/products/product-01.jpg",
+                         "sale_price":  "94.55"
+                     },
+                     {
+                         "id":  "demo-product-082",
+                         "name":  "Wireless Headphones 082",
+                         "description":  "\u003cp\u003eWireless Headphones demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "Over-ear wireless headphones.",
+                         "regular_price":  "112.49",
+                         "sku":  "AIDE-SKU-082",
+                         "manage_stock":  true,
+                         "stock_quantity":  92,
+                         "categories":  [
+                                            "Electronics",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-02",
+                         "image":  "media/products/product-02.jpg"
+                     },
+                     {
+                         "id":  "demo-product-083",
+                         "name":  "Insulated Water Bottle 083",
+                         "description":  "\u003cp\u003eInsulated Water Bottle demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "Reusable stainless water bottle.",
+                         "regular_price":  "113.74",
+                         "sku":  "AIDE-SKU-083",
+                         "manage_stock":  true,
+                         "stock_quantity":  93,
+                         "categories":  [
+                                            "Accessories",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-03",
+                         "image":  "media/products/product-03.jpg"
+                     },
+                     {
+                         "id":  "demo-product-084",
+                         "name":  "Smartwatch Classic 084",
+                         "description":  "\u003cp\u003eSmartwatch Classic demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "Fitness-ready smartwatch.",
+                         "regular_price":  "114.99",
+                         "sku":  "AIDE-SKU-084",
+                         "manage_stock":  true,
+                         "stock_quantity":  94,
+                         "categories":  [
+                                            "Electronics",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-04",
+                         "image":  "media/products/product-04.jpg",
+                         "sale_price":  "97.74"
+                     },
+                     {
+                         "id":  "demo-product-085",
+                         "name":  "Ultrabook Laptop 085",
+                         "description":  "\u003cp\u003eUltrabook Laptop demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "Lightweight laptop for work and travel.",
+                         "regular_price":  "116.24",
+                         "sku":  "AIDE-SKU-085",
+                         "manage_stock":  true,
+                         "stock_quantity":  95,
+                         "categories":  [
+                                            "Electronics",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-05",
+                         "image":  "media/products/product-05.jpg"
+                     },
+                     {
+                         "id":  "demo-product-086",
+                         "name":  "Running Sneakers 086",
+                         "description":  "\u003cp\u003eRunning Sneakers demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "Comfortable athletic sneakers.",
+                         "regular_price":  "117.49",
+                         "sku":  "AIDE-SKU-086",
+                         "manage_stock":  true,
+                         "stock_quantity":  96,
+                         "categories":  [
+                                            "Apparel",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-06",
+                         "image":  "media/products/product-06.jpg"
+                     },
+                     {
+                         "id":  "demo-product-087",
+                         "name":  "Travel Backpack 087",
+                         "description":  "\u003cp\u003eTravel Backpack demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "Durable everyday backpack.",
+                         "regular_price":  "118.74",
+                         "sku":  "AIDE-SKU-087",
+                         "manage_stock":  true,
+                         "stock_quantity":  97,
+                         "categories":  [
+                                            "Accessories",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-07",
+                         "image":  "media/products/product-07.jpg",
+                         "sale_price":  "100.93"
+                     },
+                     {
+                         "id":  "demo-product-088",
+                         "name":  "Polarized Sunglasses 088",
+                         "description":  "\u003cp\u003ePolarized Sunglasses demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "UV-protection sunglasses.",
+                         "regular_price":  "119.99",
+                         "sku":  "AIDE-SKU-088",
+                         "manage_stock":  true,
+                         "stock_quantity":  98,
+                         "categories":  [
+                                            "Accessories",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-08",
+                         "image":  "media/products/product-08.jpg"
+                     },
+                     {
+                         "id":  "demo-product-089",
+                         "name":  "Wireless Earbuds 089",
+                         "description":  "\u003cp\u003eWireless Earbuds demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "Compact true wireless earbuds.",
+                         "regular_price":  "121.24",
+                         "sku":  "AIDE-SKU-089",
+                         "manage_stock":  true,
+                         "stock_quantity":  99,
+                         "categories":  [
+                                            "Electronics",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-09",
+                         "image":  "media/products/product-09.jpg"
+                     },
+                     {
+                         "id":  "demo-product-090",
+                         "name":  "Mirrorless Camera 090",
+                         "description":  "\u003cp\u003eMirrorless Camera demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "Compact camera for creators.",
+                         "regular_price":  "122.49",
+                         "sku":  "AIDE-SKU-090",
+                         "manage_stock":  true,
+                         "stock_quantity":  10,
+                         "categories":  [
+                                            "Electronics",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-10",
+                         "image":  "media/products/product-10.jpg",
+                         "sale_price":  "104.12"
+                     },
+                     {
+                         "id":  "demo-product-091",
+                         "name":  "Mechanical Keyboard 091",
+                         "description":  "\u003cp\u003eMechanical Keyboard demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "Tactile desktop keyboard.",
+                         "regular_price":  "123.74",
+                         "sku":  "AIDE-SKU-091",
+                         "manage_stock":  true,
+                         "stock_quantity":  11,
+                         "categories":  [
+                                            "Electronics",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-11",
+                         "image":  "media/products/product-11.jpg"
+                     },
+                     {
+                         "id":  "demo-product-092",
+                         "name":  "Ceramic Coffee Mug 092",
+                         "description":  "\u003cp\u003eCeramic Coffee Mug demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "Classic ceramic mug.",
+                         "regular_price":  "124.99",
+                         "sku":  "AIDE-SKU-092",
+                         "manage_stock":  true,
+                         "stock_quantity":  12,
+                         "categories":  [
+                                            "Home",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-12",
+                         "image":  "media/products/product-12.jpg"
+                     },
+                     {
+                         "id":  "demo-product-093",
+                         "name":  "LED Desk Lamp 093",
+                         "description":  "\u003cp\u003eLED Desk Lamp demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "Adjustable LED desk lamp.",
+                         "regular_price":  "126.24",
+                         "sku":  "AIDE-SKU-093",
+                         "manage_stock":  true,
+                         "stock_quantity":  13,
+                         "categories":  [
+                                            "Home",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-13",
+                         "image":  "media/products/product-13.jpg",
+                         "sale_price":  "107.30"
+                     },
+                     {
+                         "id":  "demo-product-094",
+                         "name":  "Wireless Mouse 094",
+                         "description":  "\u003cp\u003eWireless Mouse demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "Ergonomic wireless mouse.",
+                         "regular_price":  "127.49",
+                         "sku":  "AIDE-SKU-094",
+                         "manage_stock":  true,
+                         "stock_quantity":  14,
+                         "categories":  [
+                                            "Electronics",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-14",
+                         "image":  "media/products/product-14.jpg"
+                     },
+                     {
+                         "id":  "demo-product-095",
+                         "name":  "Tablet 10-inch 095",
+                         "description":  "\u003cp\u003eTablet 10-inch demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "Portable tablet for media and notes.",
+                         "regular_price":  "128.74",
+                         "sku":  "AIDE-SKU-095",
+                         "manage_stock":  true,
+                         "stock_quantity":  15,
+                         "categories":  [
+                                            "Electronics",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-15",
+                         "image":  "media/products/product-15.jpg"
+                     },
+                     {
+                         "id":  "demo-product-096",
+                         "name":  "Portable Bluetooth Speaker 096",
+                         "description":  "\u003cp\u003ePortable Bluetooth Speaker demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "Compact wireless speaker.",
+                         "regular_price":  "129.99",
+                         "sku":  "AIDE-SKU-096",
+                         "manage_stock":  true,
+                         "stock_quantity":  16,
+                         "categories":  [
+                                            "Electronics",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-16",
+                         "image":  "media/products/product-16.jpg",
+                         "sale_price":  "110.49"
+                     },
+                     {
+                         "id":  "demo-product-097",
+                         "name":  "Fitness Tracker Band 097",
+                         "description":  "\u003cp\u003eFitness Tracker Band demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "Activity and sleep tracker.",
+                         "regular_price":  "131.24",
+                         "sku":  "AIDE-SKU-097",
+                         "manage_stock":  true,
+                         "stock_quantity":  17,
+                         "categories":  [
+                                            "Electronics",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-17",
+                         "image":  "media/products/product-17.jpg"
+                     },
+                     {
+                         "id":  "demo-product-098",
+                         "name":  "Fast Charge Power Bank 098",
+                         "description":  "\u003cp\u003eFast Charge Power Bank demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "Portable USB power bank.",
+                         "regular_price":  "132.49",
+                         "sku":  "AIDE-SKU-098",
+                         "manage_stock":  true,
+                         "stock_quantity":  18,
+                         "categories":  [
+                                            "Accessories",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-18",
+                         "image":  "media/products/product-18.jpg"
+                     },
+                     {
+                         "id":  "demo-product-099",
+                         "name":  "Braided USB Cable 099",
+                         "description":  "\u003cp\u003eBraided USB Cable demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "Durable charging cable.",
+                         "regular_price":  "133.74",
+                         "sku":  "AIDE-SKU-099",
+                         "manage_stock":  true,
+                         "stock_quantity":  19,
+                         "categories":  [
+                                            "Accessories",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-19",
+                         "image":  "media/products/product-19.jpg",
+                         "sale_price":  "113.68"
+                     },
+                     {
+                         "id":  "demo-product-100",
+                         "name":  "Hardcover Notebook 100",
+                         "description":  "\u003cp\u003eHardcover Notebook demo product for WooCommerce storefronts. Ideal sample catalog content.\u003c/p\u003e",
+                         "short_description":  "Lined hardcover journal.",
+                         "regular_price":  "134.99",
+                         "sku":  "AIDE-SKU-100",
+                         "manage_stock":  true,
+                         "stock_quantity":  20,
+                         "categories":  [
+                                            "Stationery",
+                                            "Demo"
+                                        ],
+                         "image_id":  "demo-prod-img-20",
+                         "image":  "media/products/product-20.jpg"
+                     }
+                 ]
+}
