@@ -84,8 +84,8 @@ $log        = isset($view_data['log']) ? $view_data['log'] : array();
 			$imported       = isset($status['imported']) ? (int) $status['imported'] : 0;
 			$total          = isset($status['total']) ? (int) $status['total'] : 0;
 			$remaining      = isset($status['remaining']) ? (int) $status['remaining'] : max(0, $total - $imported);
-			$available_total = max(0, $total);
-			$default_count  = $available_total > 0 ? min(10, $available_total) : 0;
+			$qty_max        = max(0, $remaining);
+			$default_count  = $qty_max > 0 ? min(10, $qty_max) : 0;
 			$progress_pct   = $total > 0 ? min(100, round(($imported / $total) * 100)) : 0;
 			$card_class     = 'aidedemodataimport-card';
 			if (!$available) {
@@ -208,26 +208,26 @@ $log        = isset($view_data['log']) ? $view_data['log'] : array();
 									id="aidedemodataimport-qty-<?php echo esc_attr($type); ?>"
 									name="aidedemodataimport_qty_<?php echo esc_attr($type); ?>"
 									min="1"
-									max="<?php echo esc_attr((string) max(1, $available_total)); ?>"
+									max="<?php echo esc_attr((string) max(1, $qty_max)); ?>"
 									value="<?php echo esc_attr((string) max(1, $default_count)); ?>"
-									<?php disabled(0 === $available_total); ?>
+									<?php disabled(0 === $qty_max); ?>
 								/>
-								<button type="button" class="button aidedemodataimport-qty-all" data-type="<?php echo esc_attr($type); ?>" data-max="<?php echo esc_attr((string) $available_total); ?>" <?php disabled(0 === $available_total); ?>>
+								<button type="button" class="button aidedemodataimport-qty-all" data-type="<?php echo esc_attr($type); ?>" data-max="<?php echo esc_attr((string) $qty_max); ?>" <?php disabled(0 === $qty_max); ?>>
 									<?php echo esc_html__('All', 'aidedemodataimport'); ?>
 								</button>
 								<span class="aidedemodataimport-card__qty-hint">
 									<?php
 									printf(
-										/* translators: %d: maximum available records */
-										esc_html__('/ %d', 'aidedemodataimport'),
-										absint($available_total)
+										/* translators: %d: remaining records available to import */
+										esc_html__('/ %d remaining', 'aidedemodataimport'),
+										absint($qty_max)
 									);
 									?>
 								</span>
 							</div>
 						</div>
 						<div class="aidedemodataimport-card__actions">
-							<button type="button" class="button button-primary aidedemodataimport-import" data-type="<?php echo esc_attr($type); ?>" <?php disabled(0 === $available_total); ?>>
+							<button type="button" class="button button-primary aidedemodataimport-import" data-type="<?php echo esc_attr($type); ?>" <?php disabled(0 === $qty_max); ?>>
 								<?php echo esc_html__('Import', 'aidedemodataimport'); ?>
 							</button>
 							<button type="button" class="button aidedemodataimport-cleanup" data-type="<?php echo esc_attr($type); ?>">

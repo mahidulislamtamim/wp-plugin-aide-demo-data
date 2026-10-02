@@ -84,9 +84,9 @@ class Aide_Demo_Data_Import_Media_Importer extends Aide_Demo_Data_Import_Importe
 	 */
 	public static function sideload_file($relative, $title = '')
 	{
-		$absolute = aidedemodataimport_get_demo_data_path($relative);
-		if (!file_exists($absolute)) {
-			return new WP_Error('missing_file', __('Media file missing.', 'aidedemodataimport'));
+		$absolute = aidedemodataimport_resolve_safe_demo_path($relative);
+		if (is_wp_error($absolute)) {
+			return $absolute;
 		}
 
 		require_once ABSPATH . 'wp-admin/includes/file.php';
@@ -121,11 +121,31 @@ class Aide_Demo_Data_Import_Media_Importer extends Aide_Demo_Data_Import_Importe
 	}
 
 	/**
+	 * Pending (not yet imported) media items.
+	 *
+	 * @return array
+	 */
+	private function get_pending_items()
+	{
+		$pending = array();
+		foreach ($this->get_items() as $item) {
+			$demo_id = isset($item['id']) ? sanitize_text_field($item['id']) : '';
+			if ('' === $demo_id) {
+				continue;
+			}
+			if (!aidedemodataimport_find_post_by_demo_id('attachment', $demo_id)) {
+				$pending[] = $item;
+			}
+		}
+		return $pending;
+	}
+
+	/**
 	 * {@inheritdoc}
 	 */
 	public function import_batch($offset, $limit)
 	{
-		$items   = $this->get_items();
+		$items   = $this->get_pending_items();
 		$total   = count($items);
 		$slice   = array_slice($items, $offset, $limit);
 		$result  = $this->empty_result(0, false);

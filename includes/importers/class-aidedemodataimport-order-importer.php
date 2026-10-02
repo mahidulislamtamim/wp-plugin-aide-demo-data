@@ -127,6 +127,26 @@ class Aide_Demo_Data_Import_Order_Importer extends Aide_Demo_Data_Import_Importe
 	}
 
 	/**
+	 * Pending (not yet imported) orders.
+	 *
+	 * @return array
+	 */
+	private function get_pending_items()
+	{
+		$pending = array();
+		foreach ($this->get_items() as $item) {
+			$demo_id = isset($item['id']) ? sanitize_text_field($item['id']) : '';
+			if ('' === $demo_id) {
+				continue;
+			}
+			if (!$this->find_order($demo_id)) {
+				$pending[] = $item;
+			}
+		}
+		return $pending;
+	}
+
+	/**
 	 * {@inheritdoc}
 	 */
 	public function import_batch($offset, $limit)
@@ -141,13 +161,44 @@ class Aide_Demo_Data_Import_Order_Importer extends Aide_Demo_Data_Import_Importe
 			);
 		}
 
-		$items        = $this->get_items();
+		$dep_check = $this->validate_dependencies();
+		if (is_wp_error($dep_check)) {
+			return array(
+				'imported'  => 0,
+				'skipped'   => 0,
+				'errors'    => array($dep_check->get_error_message()),
+				'done'      => true,
+				'processed' => 0,
+			);
+		}
+
+		$items        = $this->get_pending_items();
 		$total        = count($items);
 		$slice        = array_slice($items, $offset, $limit);
 		$result       = $this->empty_result(0, false);
 		$id_map       = aidedemodataimport_get_id_map('orders');
 		$product_map  = aidedemodataimport_get_id_map('products');
 		$customer_map = aidedemodataimport_get_id_map('customers');
+
+		if (empty($product_map)) {
+			return array(
+				'imported'  => 0,
+				'skipped'   => 0,
+				'errors'    => array(__('No demo products found. Import products before orders.', 'aidedemodataimport')),
+				'done'      => true,
+				'processed' => 0,
+			);
+		}
+
+		if (empty($customer_map)) {
+			return array(
+				'imported'  => 0,
+				'skipped'   => 0,
+				'errors'    => array(__('No demo customers found. Import customers before orders.', 'aidedemodataimport')),
+				'done'      => true,
+				'processed' => 0,
+			);
+		}
 
 		if (empty($slice)) {
 			$result['done'] = true;
@@ -171,20 +222,26 @@ class Aide_Demo_Data_Import_Order_Importer extends Aide_Demo_Data_Import_Importe
 
 			$customer_demo = isset($item['customer_id']) ? $item['customer_id'] : '';
 			$customer_id   = isset($customer_map[ $customer_demo ]) ? (int) $customer_map[ $customer_demo ] : 0;
-
-			$order = wc_create_order(
-				array(
-					'customer_id' => $customer_id,
-					'status'      => isset($item['status']) ? sanitize_key($item['status']) : 'completed',
-				)
-			);
-
-			if (is_wp_error($order)) {
-				$result['errors'][] = $order->get_error_message();
+			if ($customer_id < 1) {
+				$result['errors'][] = sprintf(
+					/* translators: %s: customer demo id */
+					__('Customer %s not found for order; import customers first.', 'aidedemodataimport'),
+					$customer_demo ? $customer_demo : __('(missing)', 'aidedemodataimport')
+				);
 				continue;
 			}
 
 			$line_items = isset($item['line_items']) && is_array($item['line_items']) ? $item['line_items'] : array();
+			if (empty($line_items)) {
+				$result['errors'][] = sprintf(
+					/* translators: %s: order demo id */
+					__('Order %s has no line items; skipped.', 'aidedemodataimport'),
+					$demo_id
+				);
+				continue;
+			}
+
+			$resolved_lines = array();
 			foreach ($line_items as $line) {
 				$product_demo = isset($line['product_id']) ? $line['product_id'] : '';
 				$qty          = isset($line['quantity']) ? max(1, (int) $line['quantity']) : 1;
@@ -198,8 +255,36 @@ class Aide_Demo_Data_Import_Order_Importer extends Aide_Demo_Data_Import_Importe
 				}
 				$product = wc_get_product((int) $product_map[ $product_demo ]);
 				if ($product) {
-					$order->add_product($product, $qty);
+					$resolved_lines[] = array(
+						'product'  => $product,
+						'quantity' => $qty,
+					);
 				}
+			}
+
+			if (empty($resolved_lines)) {
+				$result['errors'][] = sprintf(
+					/* translators: %s: order demo id */
+					__('Order %s has no valid products; skipped.', 'aidedemodataimport'),
+					$demo_id
+				);
+				continue;
+			}
+
+			$order = wc_create_order(
+				array(
+					'customer_id' => $customer_id,
+					'status'      => isset($item['status']) ? sanitize_key($item['status']) : 'completed',
+				)
+			);
+
+			if (is_wp_error($order)) {
+				$result['errors'][] = $order->get_error_message();
+				continue;
+			}
+
+			foreach ($resolved_lines as $resolved) {
+				$order->add_product($resolved['product'], $resolved['quantity']);
 			}
 
 			if (!empty($item['billing']) && is_array($item['billing'])) {

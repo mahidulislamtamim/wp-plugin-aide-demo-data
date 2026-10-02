@@ -26,7 +26,58 @@ function aidedemodataimport_get_demo_data_path($relative = '')
 		return $base;
 	}
 
-	return $base . ltrim($relative, '/\\');
+	return $base . ltrim(str_replace('\\', '/', $relative), '/');
+}
+
+/**
+ * Resolve a demo-data relative path safely (must stay inside demo-data/).
+ *
+ * @param string $relative Relative path inside demo-data/.
+ * @return string|WP_Error Absolute real path, or error.
+ */
+function aidedemodataimport_resolve_safe_demo_path($relative)
+{
+	$relative = str_replace('\\', '/', (string) $relative);
+	$relative = ltrim($relative, '/');
+
+	if ('' === $relative || false !== strpos($relative, '..')) {
+		return new WP_Error(
+			'invalid_demo_path',
+			__('Invalid demo media path.', 'aidedemodataimport')
+		);
+	}
+
+	$base = aidedemodataimport_get_demo_data_path();
+	$base_real = realpath($base);
+	if (false === $base_real || !is_dir($base_real)) {
+		return new WP_Error(
+			'missing_demo_base',
+			__('Demo data directory is missing.', 'aidedemodataimport')
+		);
+	}
+
+	$candidate = aidedemodataimport_get_demo_data_path($relative);
+	$real      = realpath($candidate);
+
+	if (false === $real || !is_file($real)) {
+		return new WP_Error(
+			'missing_file',
+			__('Media file missing.', 'aidedemodataimport')
+		);
+	}
+
+	$base_norm = wp_normalize_path($base_real);
+	$real_norm = wp_normalize_path($real);
+	$prefix    = trailingslashit($base_norm);
+
+	if (0 !== strpos($real_norm, $prefix) && $real_norm !== $base_norm) {
+		return new WP_Error(
+			'path_escape',
+			__('Media path is outside the demo data directory.', 'aidedemodataimport')
+		);
+	}
+
+	return $real;
 }
 
 /**

@@ -130,6 +130,26 @@ class Aide_Demo_Data_Import_Customer_Importer extends Aide_Demo_Data_Import_Impo
 	}
 
 	/**
+	 * Pending (not yet imported) customers.
+	 *
+	 * @return array
+	 */
+	private function get_pending_items()
+	{
+		$pending = array();
+		foreach ($this->get_items() as $item) {
+			$demo_id = isset($item['id']) ? sanitize_text_field($item['id']) : '';
+			if ('' === $demo_id) {
+				continue;
+			}
+			if (!aidedemodataimport_find_user_by_demo_id($demo_id)) {
+				$pending[] = $item;
+			}
+		}
+		return $pending;
+	}
+
+	/**
 	 * {@inheritdoc}
 	 */
 	public function import_batch($offset, $limit)
@@ -144,7 +164,7 @@ class Aide_Demo_Data_Import_Customer_Importer extends Aide_Demo_Data_Import_Impo
 			);
 		}
 
-		$items  = $this->get_items();
+		$items  = $this->get_pending_items();
 		$total  = count($items);
 		$slice  = array_slice($items, $offset, $limit);
 		$result = $this->empty_result(0, false);

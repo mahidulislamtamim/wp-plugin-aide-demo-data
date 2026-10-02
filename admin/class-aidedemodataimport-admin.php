@@ -113,13 +113,18 @@ class Aide_Demo_Data_Import_Admin
 					),
 					/* translators: %d: number of records to import */
 					'confirmImportCount' => __(
-						'Import %d records? Existing demo items with the same ID will be skipped.',
+						'Import %d records?',
 						'aidedemodataimport'
 					),
 					'confirmCleanup' => __(
 						'Remove all demo content imported by this plugin for this type? This cannot be undone.',
 						'aidedemodataimport'
 					),
+					'confirmTitle'   => __('Confirm import', 'aidedemodataimport'),
+					'cleanupTitle'   => __('Confirm removal', 'aidedemodataimport'),
+					'confirmOk'      => __('Import', 'aidedemodataimport'),
+					'cleanupOk'      => __('Remove', 'aidedemodataimport'),
+					'confirmCancel'  => __('Cancel', 'aidedemodataimport'),
 					'importing' => __('Importing…', 'aidedemodataimport'),
 					'cleaning'  => __('Removing…', 'aidedemodataimport'),
 					'done'      => __('Done.', 'aidedemodataimport'),

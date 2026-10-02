@@ -77,9 +77,9 @@ abstract class Aide_Demo_Data_Import_Importer_Base
 	abstract public function get_total();
 
 	/**
-	 * Import one batch.
+	 * Import one batch of pending (not-yet-imported) items.
 	 *
-	 * @param int $offset Offset.
+	 * @param int $offset Offset into the pending list.
 	 * @param int $limit  Batch size.
 	 * @return array{imported:int,skipped:int,errors:array,done:bool,processed:int}
 	 */
@@ -98,6 +98,16 @@ abstract class Aide_Demo_Data_Import_Importer_Base
 	 * @return int
 	 */
 	abstract public function count_imported();
+
+	/**
+	 * How many package items are still not imported.
+	 *
+	 * @return int
+	 */
+	public function count_pending()
+	{
+		return max(0, (int) $this->get_total() - (int) $this->count_imported());
+	}
 
 	/**
 	 * Status summary for the admin UI.
@@ -119,6 +129,35 @@ abstract class Aide_Demo_Data_Import_Importer_Base
 			'last_run'   => isset($last['time']) ? $last['time'] : '',
 			'last_stats' => isset($last['stats']) ? $last['stats'] : array(),
 		);
+	}
+
+	/**
+	 * Whether dependencies for this importer are satisfied.
+	 *
+	 * @return true|WP_Error
+	 */
+	public function validate_dependencies()
+	{
+		foreach ($this->get_dependencies() as $dep) {
+			$dep_importer = Aide_Demo_Data_Import_Importer_Registry::get($dep);
+			if (!$dep_importer) {
+				continue;
+			}
+
+			if ((int) $dep_importer->count_imported() < 1 && empty(aidedemodataimport_get_id_map($dep))) {
+				return new WP_Error(
+					'missing_dependency',
+					sprintf(
+						/* translators: 1: current importer label, 2: dependency label */
+						__('Import %2$s before importing %1$s.', 'aidedemodataimport'),
+						$this->get_label(),
+						$dep_importer->get_label()
+					)
+				);
+			}
+		}
+
+		return true;
 	}
 
 	/**

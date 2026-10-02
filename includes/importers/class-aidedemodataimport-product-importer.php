@@ -55,14 +55,6 @@ class Aide_Demo_Data_Import_Product_Importer extends Aide_Demo_Data_Import_Impor
 	}
 
 	/**
-	 * {@inheritdoc}
-	 */
-	public function get_dependencies()
-	{
-		return array('media');
-	}
-
-	/**
 	 * Load products.
 	 *
 	 * @return array
@@ -118,53 +110,14 @@ class Aide_Demo_Data_Import_Product_Importer extends Aide_Demo_Data_Import_Impor
 	}
 
 	/**
-	 * Resolve a relative image path for a product (direct path or via media.json).
-	 *
-	 * @param array $item Product item.
-	 * @return string Relative path under demo-data/, or empty.
-	 */
-	private function resolve_image_path($item)
-	{
-		if (!empty($item['image'])) {
-			return (string) $item['image'];
-		}
-
-		if (empty($item['image_id'])) {
-			return '';
-		}
-
-		$data = aidedemodataimport_load_json('media.json');
-		if (is_wp_error($data) || empty($data['media']) || !is_array($data['media'])) {
-			return '';
-		}
-
-		foreach ($data['media'] as $media_item) {
-			if (empty($media_item['id']) || empty($media_item['file'])) {
-				continue;
-			}
-			if ((string) $media_item['id'] === (string) $item['image_id']) {
-				return (string) $media_item['file'];
-			}
-		}
-
-		return '';
-	}
-
-	/**
-	 * Resolve product image — uses media map when available, otherwise sideloads
-	 * so product-only import still uploads a featured image.
+	 * Sideload product image from demo-data path (media/products/...).
 	 *
 	 * @param array $item Product item.
 	 * @return int
 	 */
 	private function resolve_image($item)
 	{
-		$media_map = aidedemodataimport_get_id_map('media');
-		if (!empty($item['image_id']) && isset($media_map[ $item['image_id'] ])) {
-			return (int) $media_map[ $item['image_id'] ];
-		}
-
-		$path = $this->resolve_image_path($item);
+		$path = !empty($item['image']) ? (string) $item['image'] : '';
 		if ('' === $path) {
 			return 0;
 		}
@@ -175,8 +128,6 @@ class Aide_Demo_Data_Import_Product_Importer extends Aide_Demo_Data_Import_Impor
 
 		$existing = aidedemodataimport_find_post_by_demo_id('attachment', $demo_id);
 		if ($existing) {
-			$media_map[ $demo_id ] = $existing;
-			aidedemodataimport_set_id_map('media', $media_map);
 			return $existing;
 		}
 
@@ -190,10 +141,28 @@ class Aide_Demo_Data_Import_Product_Importer extends Aide_Demo_Data_Import_Impor
 		}
 
 		aidedemodataimport_tag_post($attachment_id, $demo_id);
-		$media_map[ $demo_id ] = $attachment_id;
-		aidedemodataimport_set_id_map('media', $media_map);
 
 		return (int) $attachment_id;
+	}
+
+	/**
+	 * Pending (not yet imported) products.
+	 *
+	 * @return array
+	 */
+	private function get_pending_items()
+	{
+		$pending = array();
+		foreach ($this->get_items() as $item) {
+			$demo_id = isset($item['id']) ? sanitize_text_field($item['id']) : '';
+			if ('' === $demo_id) {
+				continue;
+			}
+			if (!aidedemodataimport_find_post_by_demo_id('product', $demo_id)) {
+				$pending[] = $item;
+			}
+		}
+		return $pending;
 	}
 
 	/**
@@ -211,7 +180,7 @@ class Aide_Demo_Data_Import_Product_Importer extends Aide_Demo_Data_Import_Impor
 			);
 		}
 
-		$items  = $this->get_items();
+		$items  = $this->get_pending_items();
 		$total  = count($items);
 		$slice  = array_slice($items, $offset, $limit);
 		$result = $this->empty_result(0, false);
@@ -237,31 +206,42 @@ class Aide_Demo_Data_Import_Product_Importer extends Aide_Demo_Data_Import_Impor
 				continue;
 			}
 
-			$product = new WC_Product_Simple();
-			$product->set_name(isset($item['name']) ? sanitize_text_field($item['name']) : $demo_id);
-			$product->set_status('publish');
-			$product->set_catalog_visibility('visible');
-			$product->set_description(isset($item['description']) ? wp_kses_post($item['description']) : '');
-			$product->set_short_description(isset($item['short_description']) ? wp_kses_post($item['short_description']) : '');
-			$product->set_regular_price(isset($item['regular_price']) ? (string) $item['regular_price'] : '9.99');
-			if (!empty($item['sale_price'])) {
-				$product->set_sale_price((string) $item['sale_price']);
-			}
-			if (!empty($item['sku'])) {
-				$product->set_sku(sanitize_text_field($item['sku']));
-			}
-			$product->set_manage_stock(!empty($item['manage_stock']));
-			if (isset($item['stock_quantity'])) {
-				$product->set_stock_quantity((int) $item['stock_quantity']);
-				$product->set_stock_status('instock');
+			try {
+				$product = new WC_Product_Simple();
+				$product->set_name(isset($item['name']) ? sanitize_text_field($item['name']) : $demo_id);
+				$product->set_status('publish');
+				$product->set_catalog_visibility('visible');
+				$product->set_description(isset($item['description']) ? wp_kses_post($item['description']) : '');
+				$product->set_short_description(isset($item['short_description']) ? wp_kses_post($item['short_description']) : '');
+				$product->set_regular_price(isset($item['regular_price']) ? (string) $item['regular_price'] : '9.99');
+				if (!empty($item['sale_price'])) {
+					$product->set_sale_price((string) $item['sale_price']);
+				}
+				if (!empty($item['sku'])) {
+					$product->set_sku(sanitize_text_field($item['sku']));
+				}
+				$product->set_manage_stock(!empty($item['manage_stock']));
+				if (isset($item['stock_quantity'])) {
+					$product->set_stock_quantity((int) $item['stock_quantity']);
+					$product->set_stock_status('instock');
+				}
+
+				$image_id = $this->resolve_image($item);
+				if ($image_id) {
+					$product->set_image_id($image_id);
+				}
+
+				$product_id = $product->save();
+			} catch (WC_Data_Exception $e) {
+				$result['errors'][] = $e->getMessage();
+				aidedemodataimport_log($e->getMessage(), 'error', 'products');
+				continue;
+			} catch (Exception $e) {
+				$result['errors'][] = $e->getMessage();
+				aidedemodataimport_log($e->getMessage(), 'error', 'products');
+				continue;
 			}
 
-			$image_id = $this->resolve_image($item);
-			if ($image_id) {
-				$product->set_image_id($image_id);
-			}
-
-			$product_id = $product->save();
 			if (!$product_id) {
 				$result['errors'][] = __('Failed to save product.', 'aidedemodataimport');
 				continue;

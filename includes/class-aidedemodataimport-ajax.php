@@ -82,26 +82,38 @@ class Aide_Demo_Data_Import_Ajax
 	}
 
 	/**
-	 * Resolve how many records the user requested (capped to available).
+	 * Resolve how many records the user requested for this session.
 	 *
 	 * @param Aide_Demo_Data_Import_Importer_Base $importer Importer.
 	 * @return int
 	 */
 	private static function resolve_import_count($importer)
 	{
-		$available = max(0, (int) $importer->get_total());
-		if ($available < 1) {
+		$pending = max(0, (int) $importer->count_pending());
+		if ($pending < 1) {
 			return 0;
 		}
 
 		// Nonce verified in route() before this method runs.
 		// phpcs:ignore WordPress.Security.NonceVerification.Missing
-		$count = isset($_POST['count']) ? absint(wp_unslash($_POST['count'])) : $available;
+		$count = isset($_POST['count']) ? absint(wp_unslash($_POST['count'])) : $pending;
 		if ($count < 1) {
-			$count = $available;
+			$count = $pending;
 		}
 
-		return min($count, $available);
+		return min($count, $pending);
+	}
+
+	/**
+	 * Session target count from the client (not re-capped to shrinking pending).
+	 *
+	 * @return int
+	 */
+	private static function session_target_count()
+	{
+		// Nonce verified in route() before this method runs.
+		// phpcs:ignore WordPress.Security.NonceVerification.Missing
+		return isset($_POST['count']) ? absint(wp_unslash($_POST['count'])) : 0;
 	}
 
 	/**
@@ -119,20 +131,18 @@ class Aide_Demo_Data_Import_Ajax
 			);
 		}
 
-		foreach ($importer->get_dependencies() as $dep) {
-			$dep_importer = Aide_Demo_Data_Import_Importer_Registry::get($dep);
-			if (!$dep_importer) {
-				continue;
-			}
-			// Soft check: warn in response if dependency has zero mapped IDs and total > 0.
-			$map = aidedemodataimport_get_id_map($dep);
-			if ($dep_importer->get_total() > 0 && empty($map)) {
-				// Still allow — importer may resolve inline; frontend can warn.
-			}
+		$deps = $importer->validate_dependencies();
+		if (is_wp_error($deps)) {
+			wp_send_json_error(
+				array(
+					'message' => $deps->get_error_message(),
+				)
+			);
 		}
 
-		$type  = $importer->get_type();
-		$total = self::resolve_import_count($importer);
+		$type    = $importer->get_type();
+		$total   = self::resolve_import_count($importer);
+		$pending = (int) $importer->count_pending();
 
 		/**
 		 * Fires before an import starts.
@@ -146,12 +156,13 @@ class Aide_Demo_Data_Import_Ajax
 				'type'      => $type,
 				'total'     => $total,
 				'available' => (int) $importer->get_total(),
+				'pending'   => $pending,
 				'message'   => sprintf(
-					/* translators: 1: importer label, 2: selected count, 3: available count */
-					__('Starting import of %1$s (%2$d of %3$d items).', 'aidedemodataimport'),
+					/* translators: 1: importer label, 2: selected count, 3: pending count */
+					__('Starting import of %1$s (%2$d of %3$d remaining items).', 'aidedemodataimport'),
 					$importer->get_label(),
 					$total,
-					(int) $importer->get_total()
+					$pending
 				),
 			)
 		);
@@ -168,14 +179,23 @@ class Aide_Demo_Data_Import_Ajax
 			wp_send_json_error(array('message' => __('Importer not available.', 'aidedemodataimport')));
 		}
 
+		$deps = $importer->validate_dependencies();
+		if (is_wp_error($deps)) {
+			wp_send_json_error(array('message' => $deps->get_error_message()));
+		}
+
 		// Nonce verified in route() before this method runs.
 		// phpcs:disable WordPress.Security.NonceVerification.Missing
 		$offset = isset($_POST['offset']) ? absint(wp_unslash($_POST['offset'])) : 0;
-		$max    = self::resolve_import_count($importer);
-		$limit  = isset($_POST['limit']) ? absint(wp_unslash($_POST['limit'])) : aidedemodataimport_batch_size();
-		$limit  = max(1, min(50, $limit));
+		$max    = self::session_target_count();
+		if ($max < 1) {
+			$max = self::resolve_import_count($importer);
+		}
+		$pending = max(0, (int) $importer->count_pending());
+		$limit   = isset($_POST['limit']) ? absint(wp_unslash($_POST['limit'])) : aidedemodataimport_batch_size();
+		$limit   = max(1, min(50, $limit));
 
-		if ($max < 1 || $offset >= $max) {
+		if ($max < 1 || $offset >= $max || $pending < 1) {
 			if (isset($_POST['session_imported']) || isset($_POST['session_skipped'])) {
 				update_option(
 					'aidedemodataimport_last_' . $importer->get_type(),
@@ -208,12 +228,11 @@ class Aide_Demo_Data_Import_Ajax
 			);
 		}
 
-		// Cap this batch so we never process past the user-selected count.
-		$limit = min($limit, $max - $offset);
-
-		$result = $importer->import_batch($offset, $limit);
+		// Always pull the next pending items (offset 0). Session $offset tracks progress toward $max.
+		$limit  = min($limit, $max - $offset, $pending);
+		$result = $importer->import_batch(0, $limit);
 		$next   = $offset + $limit;
-		$done   = ($next >= $max) || !empty($result['done']);
+		$done   = ($next >= $max) || ((int) $importer->count_pending() < 1) || !empty($result['done']);
 
 		if ($done) {
 			$importer_done_stats = array(
