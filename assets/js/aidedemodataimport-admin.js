@@ -4,9 +4,10 @@
 	var cfg = window.aidedemodataimportAdmin || {};
 	var $progress = $('#aidedemodataimport-progress');
 	var $fill = $progress.find('.aidedemodataimport-progress__fill');
-	var $text = $progress.find('.aidedemodataimport-progress__text');
+	var $track = $progress.find('.aidedemodataimport-progress__track');
 	var $live = $('#aidedemodataimport-live-log');
 	var busy = false;
+	var activeType = '';
 	var $modal = null;
 	var modalResolver = null;
 
@@ -14,12 +15,105 @@
 		$live.prepend($('<div/>').text(msg));
 	}
 
-	function setProgress(current, total) {
-		var pct = total > 0 ? Math.min(100, Math.round((current / total) * 100)) : 100;
-		$progress.prop('hidden', false);
-		$fill.css('width', pct + '%');
-		var tpl = (cfg.i18n && cfg.i18n.progress) || 'Progress: %1$d / %2$d';
-		$text.text(tpl.replace('%1$d', current).replace('%2$d', total));
+	function typeLabel(type) {
+		if (cfg.typeLabels && cfg.typeLabels[type]) {
+			return cfg.typeLabels[type];
+		}
+		var $card = $('.aidedemodataimport-card[data-type="' + type + '"]');
+		var title = $card.find('.aidedemodataimport-card__title').text();
+		return title || type;
+	}
+
+	function clearActiveCards() {
+		$('.aidedemodataimport-card').removeClass('is-active-import is-active-cleanup');
+	}
+
+	function setActiveCard(type, mode) {
+		clearActiveCards();
+		if (!type) {
+			return;
+		}
+		var cls = mode === 'cleanup' ? 'is-active-cleanup' : 'is-active-import';
+		$('.aidedemodataimport-card[data-type="' + type + '"]').addClass(cls);
+	}
+
+	/**
+	 * @param {Object} opts
+	 * @param {string} opts.type
+	 * @param {string} opts.mode import|cleanup|done
+	 * @param {number} [opts.current]
+	 * @param {number} [opts.total]
+	 * @param {number} [opts.imported]
+	 * @param {number} [opts.skipped]
+	 * @param {boolean} [opts.indeterminate]
+	 */
+	function setProgress(opts) {
+		opts = opts || {};
+		var type = opts.type || activeType || '';
+		var mode = opts.mode || 'import';
+		var current = typeof opts.current === 'number' ? opts.current : 0;
+		var total = typeof opts.total === 'number' ? opts.total : 0;
+		var imported = typeof opts.imported === 'number' ? opts.imported : 0;
+		var skipped = typeof opts.skipped === 'number' ? opts.skipped : 0;
+		var indeterminate = !!opts.indeterminate;
+		var label = typeLabel(type);
+		var pct = 0;
+
+		if (!indeterminate) {
+			pct = total > 0 ? Math.min(100, Math.round((current / total) * 100)) : mode === 'done' ? 100 : 0;
+		}
+
+		activeType = type;
+		$progress
+			.prop('hidden', false)
+			.removeClass('is-cleanup is-done is-indeterminate')
+			.addClass(mode === 'cleanup' ? 'is-cleanup' : '')
+			.addClass(mode === 'done' ? 'is-done' : '')
+			.toggleClass('is-indeterminate', indeterminate);
+
+		var modeText = (cfg.i18n && cfg.i18n.modeImport) || 'Importing';
+		var subtitleTpl = (cfg.i18n && cfg.i18n.progressImportSubtitle) || 'Importing %s demo records for this session.';
+		if (mode === 'cleanup') {
+			modeText = (cfg.i18n && cfg.i18n.modeCleanup) || 'Removing';
+			subtitleTpl = (cfg.i18n && cfg.i18n.progressCleanupSubtitle) || 'Removing demo %s content tagged by this plugin.';
+		} else if (mode === 'done') {
+			modeText = (cfg.i18n && cfg.i18n.modeDone) || 'Completed';
+			subtitleTpl = (cfg.i18n && cfg.i18n.progressDoneSubtitle) || 'Finished processing %s.';
+		}
+
+		$progress.find('.aidedemodataimport-progress__mode').text(modeText);
+		$progress.find('.aidedemodataimport-progress__title').text(label);
+		$progress.find('.aidedemodataimport-progress__subtitle').text(subtitleTpl.replace('%s', label));
+		$progress.find('.aidedemodataimport-progress__pct').text(indeterminate ? '…' : pct + '%');
+
+		var countsTpl = (cfg.i18n && cfg.i18n.progressCounts) || '%1$d of %2$d records';
+		$progress
+			.find('.aidedemodataimport-progress__counts')
+			.text(
+				indeterminate
+					? label
+					: countsTpl.replace('%1$d', String(current)).replace('%2$d', String(total))
+			);
+
+		$fill.css('width', indeterminate ? '35%' : pct + '%');
+		$track.attr('aria-valuenow', indeterminate ? 0 : pct);
+		$track.attr('aria-label', label + ' — ' + modeText);
+
+		$progress.find('[data-stat="imported"]').text(String(imported));
+		$progress.find('[data-stat="skipped"]').text(String(skipped));
+		$progress.find('[data-stat="session"]').text(String(current) + ' / ' + String(total));
+
+		setActiveCard(type, mode === 'cleanup' ? 'cleanup' : 'import');
+	}
+
+	function hideProgressSoon() {
+		window.setTimeout(function () {
+			if (!busy) {
+				$progress.prop('hidden', true).removeClass('is-cleanup is-done is-indeterminate');
+				clearActiveCards();
+				activeType = '';
+			}
+		}, 2200);
 	}
 
 	function setBusy(state) {
@@ -262,24 +356,49 @@
 	function startImport(type, count) {
 		setBusy(true);
 		logLine((cfg.i18n && cfg.i18n.importing) || 'Importing…');
-		setProgress(0, 0);
+		setProgress({
+			type: type,
+			mode: 'import',
+			current: 0,
+			total: count,
+			imported: 0,
+			skipped: 0,
+			indeterminate: true
+		});
 
 		ajax('aidedemodataimport_start_import', { type: type, count: count })
 			.done(function (res) {
 				if (!res || !res.success) {
 					logLine((res && res.data && res.data.message) || (cfg.i18n && cfg.i18n.error) || 'Error');
 					setBusy(false);
+					hideProgressSoon();
 					return;
 				}
 
 				var total = res.data.total || 0;
 				logLine(res.data.message || '');
-				setProgress(0, total);
+				setProgress({
+					type: type,
+					mode: 'import',
+					current: 0,
+					total: total,
+					imported: 0,
+					skipped: 0
+				});
 
 				if (total === 0) {
 					logLine((cfg.i18n && cfg.i18n.done) || 'Done.');
+					setProgress({
+						type: type,
+						mode: 'done',
+						current: 0,
+						total: 0,
+						imported: 0,
+						skipped: 0
+					});
 					refreshStatus(type).always(function () {
 						setBusy(false);
+						hideProgressSoon();
 					});
 					return;
 				}
@@ -290,6 +409,7 @@
 			.fail(function () {
 				logLine((cfg.i18n && cfg.i18n.error) || 'Error');
 				setBusy(false);
+				hideProgressSoon();
 			});
 	}
 
@@ -330,6 +450,7 @@
 				if (!res || !res.success) {
 					logLine((res && res.data && res.data.message) || (cfg.i18n && cfg.i18n.error) || 'Error');
 					setBusy(false);
+					hideProgressSoon();
 					return;
 				}
 
@@ -345,7 +466,14 @@
 
 				var next = data.next || offset + limit;
 				var current = Math.min(next, total);
-				setProgress(current, total);
+				setProgress({
+					type: type,
+					mode: 'import',
+					current: current,
+					total: total,
+					imported: importedTotal,
+					skipped: skippedTotal
+				});
 
 				if (data.done) {
 					logLine(
@@ -355,6 +483,15 @@
 							' skipped=' +
 							skippedTotal
 					);
+
+					setProgress({
+						type: type,
+						mode: 'done',
+						current: total,
+						total: total,
+						imported: importedTotal,
+						skipped: skippedTotal
+					});
 
 					// Persist full-session totals, then refresh live history counts.
 					ajax('aidedemodataimport_run_batch', {
@@ -367,6 +504,7 @@
 					}).always(function () {
 						refreshStatus(type).always(function () {
 							setBusy(false);
+							hideProgressSoon();
 						});
 					});
 					return;
@@ -377,12 +515,22 @@
 			.fail(function () {
 				logLine((cfg.i18n && cfg.i18n.error) || 'Error');
 				setBusy(false);
+				hideProgressSoon();
 			});
 	}
 
 	function startCleanup(type) {
 		setBusy(true);
 		logLine((cfg.i18n && cfg.i18n.cleaning) || 'Removing…');
+		setProgress({
+			type: type,
+			mode: 'cleanup',
+			current: 0,
+			total: 1,
+			imported: 0,
+			skipped: 0,
+			indeterminate: true
+		});
 
 		ajax('aidedemodataimport_cleanup', { type: type })
 			.done(function (res) {
@@ -393,14 +541,24 @@
 					if (res.data.status) {
 						applyStatus(type, res.data.status);
 					}
+					setProgress({
+						type: type,
+						mode: 'done',
+						current: 1,
+						total: 1,
+						imported: res.data.deleted || 0,
+						skipped: 0
+					});
 				}
 				refreshStatus(type).always(function () {
 					setBusy(false);
+					hideProgressSoon();
 				});
 			})
 			.fail(function () {
 				logLine((cfg.i18n && cfg.i18n.error) || 'Error');
 				setBusy(false);
+				hideProgressSoon();
 			});
 	}
 

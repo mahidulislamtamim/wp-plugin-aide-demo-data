@@ -99,14 +99,20 @@ class Aide_Demo_Data_Import_Admin
 			true
 		);
 
+		$type_labels = array();
+		foreach (Aide_Demo_Data_Import_Importer_Registry::get_importers() as $type => $importer) {
+			$type_labels[ $type ] = $importer->get_label();
+		}
+
 		wp_localize_script(
 			'aidedemodataimport-admin',
 			'aidedemodataimportAdmin',
 			array(
-				'ajaxUrl'   => admin_url('admin-ajax.php'),
-				'nonce'     => wp_create_nonce('aidedemodataimport_admin_nonce'),
-				'batchSize' => aidedemodataimport_batch_size(),
-				'i18n'      => array(
+				'ajaxUrl'    => admin_url('admin-ajax.php'),
+				'nonce'      => wp_create_nonce('aidedemodataimport_admin_nonce'),
+				'batchSize'  => aidedemodataimport_batch_size(),
+				'typeLabels' => $type_labels,
+				'i18n'       => array(
 					'confirmImport' => __(
 						'Start importing this demo content? Existing demo items with the same ID will be skipped.',
 						'aidedemodataimport'
@@ -129,8 +135,19 @@ class Aide_Demo_Data_Import_Admin
 					'cleaning'  => __('Removing…', 'aidedemodataimport'),
 					'done'      => __('Done.', 'aidedemodataimport'),
 					'error'     => __('Something went wrong.', 'aidedemodataimport'),
+					'modeImport' => __('Importing', 'aidedemodataimport'),
+					'modeCleanup' => __('Removing', 'aidedemodataimport'),
+					'modeDone' => __('Completed', 'aidedemodataimport'),
+					/* translators: %s: content type label */
+					'progressImportSubtitle' => __('Importing %s demo records for this session.', 'aidedemodataimport'),
+					/* translators: %s: content type label */
+					'progressCleanupSubtitle' => __('Removing demo %s content tagged by this plugin.', 'aidedemodataimport'),
+					/* translators: %s: content type label */
+					'progressDoneSubtitle' => __('Finished processing %s.', 'aidedemodataimport'),
 					/* translators: 1: current progress count, 2: total count */
 					'progress' => __('Progress: %1$d / %2$d', 'aidedemodataimport'),
+					/* translators: 1: current count, 2: total count */
+					'progressCounts' => __('%1$d of %2$d records', 'aidedemodataimport'),
 					/* translators: 1: imported count, 2: total available */
 					'alreadyImported' => __('Already imported: %1$d of %2$d', 'aidedemodataimport'),
 					/* translators: %d: remaining count */

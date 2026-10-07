@@ -67,11 +67,40 @@ $log        = isset($view_data['log']) ? $view_data['log'] : array();
 		</table>
 	</div>
 
-	<div id="aidedemodataimport-progress" class="aidedemodataimport-progress" hidden>
-		<div class="aidedemodataimport-progress__bar">
+	<div id="aidedemodataimport-progress" class="aidedemodataimport-progress" hidden aria-live="polite">
+		<div class="aidedemodataimport-progress__header">
+			<div class="aidedemodataimport-progress__identity">
+				<span class="aidedemodataimport-progress__pulse" aria-hidden="true"></span>
+				<div class="aidedemodataimport-progress__copy">
+					<p class="aidedemodataimport-progress__eyebrow">
+						<span class="aidedemodataimport-progress__mode"></span>
+					</p>
+					<h2 class="aidedemodataimport-progress__title"></h2>
+					<p class="aidedemodataimport-progress__subtitle"></p>
+				</div>
+			</div>
+			<div class="aidedemodataimport-progress__meta">
+				<span class="aidedemodataimport-progress__pct">0%</span>
+				<span class="aidedemodataimport-progress__counts"></span>
+			</div>
+		</div>
+		<div class="aidedemodataimport-progress__track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
 			<span class="aidedemodataimport-progress__fill" style="width:0%"></span>
 		</div>
-		<p class="aidedemodataimport-progress__text"></p>
+		<div class="aidedemodataimport-progress__footer">
+			<span class="aidedemodataimport-progress__stat is-imported">
+				<strong class="aidedemodataimport-progress__stat-value" data-stat="imported">0</strong>
+				<span class="aidedemodataimport-progress__stat-label"><?php echo esc_html__('Imported', 'aidedemodataimport'); ?></span>
+			</span>
+			<span class="aidedemodataimport-progress__stat is-skipped">
+				<strong class="aidedemodataimport-progress__stat-value" data-stat="skipped">0</strong>
+				<span class="aidedemodataimport-progress__stat-label"><?php echo esc_html__('Skipped', 'aidedemodataimport'); ?></span>
+			</span>
+			<span class="aidedemodataimport-progress__stat is-session">
+				<strong class="aidedemodataimport-progress__stat-value" data-stat="session">0 / 0</strong>
+				<span class="aidedemodataimport-progress__stat-label"><?php echo esc_html__('This session', 'aidedemodataimport'); ?></span>
+			</span>
+		</div>
 	</div>
 
 	<div class="aidedemodataimport-cards">
