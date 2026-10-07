@@ -78,7 +78,7 @@ class Aide_Demo_Data_Import_Post_Importer extends Aide_Demo_Data_Import_Importer
 	/**
 	 * {@inheritdoc}
 	 */
-	public function get_total()
+	public function get_package_total()
 	{
 		return count($this->get_items());
 	}
@@ -148,21 +148,19 @@ class Aide_Demo_Data_Import_Post_Importer extends Aide_Demo_Data_Import_Importer
 	/**
 	 * Pending (not yet imported) posts.
 	 *
+	 * @param int $limit Max items.
 	 * @return array
 	 */
-	private function get_pending_items()
+	private function get_pending_items($limit = 10)
 	{
-		$pending = array();
-		foreach ($this->get_items() as $item) {
-			$demo_id = isset($item['id']) ? sanitize_text_field($item['id']) : '';
-			if ('' === $demo_id) {
-				continue;
-			}
-			if (!aidedemodataimport_find_post_by_demo_id('post', $demo_id)) {
-				$pending[] = $item;
-			}
-		}
-		return $pending;
+		return $this->collect_next_pending_items(
+			$limit,
+			static function ($item) {
+				$demo_id = isset($item['id']) ? sanitize_text_field($item['id']) : '';
+				return ('' === $demo_id) || (bool) aidedemodataimport_find_post_by_demo_id('post', $demo_id);
+			},
+			$this->get_items()
+		);
 	}
 
 	/**
@@ -170,9 +168,8 @@ class Aide_Demo_Data_Import_Post_Importer extends Aide_Demo_Data_Import_Importer
 	 */
 	public function import_batch($offset, $limit)
 	{
-		$items  = $this->get_pending_items();
-		$total  = count($items);
-		$slice  = array_slice($items, $offset, $limit);
+		unset($offset);
+		$slice  = $this->get_pending_items($limit);
 		$result = $this->empty_result(0, false);
 		$id_map = aidedemodataimport_get_id_map('posts');
 		$author = get_current_user_id();
@@ -259,9 +256,7 @@ class Aide_Demo_Data_Import_Post_Importer extends Aide_Demo_Data_Import_Importer
 		}
 
 		aidedemodataimport_set_id_map('posts', $id_map);
-
-		$next           = $offset + $limit;
-		$result['done'] = $next >= $total;
+		$result['done'] = count($slice) < $limit || $this->count_pending() < 1;
 
 		if ($result['done']) {
 			$this->record_last_run(

@@ -165,6 +165,8 @@
 
 		var imported = parseInt(status.imported, 10) || 0;
 		var total = parseInt(status.total, 10) || 0;
+		var packageCount =
+			typeof status.package !== 'undefined' ? parseInt(status.package, 10) || 0 : total;
 		var remaining =
 			typeof status.remaining !== 'undefined'
 				? parseInt(status.remaining, 10)
@@ -180,8 +182,18 @@
 
 		$card.find('.aidedemodataimport-card__imported-value').text(String(imported));
 		$card.find('.aidedemodataimport-card__remaining-value').text(String(remaining));
+		$card.find('.aidedemodataimport-card__total-value').text(String(total));
 		$card.find('.aidedemodataimport-card__progress-fill').css('width', pct + '%');
 		$card.toggleClass('has-imports', imported > 0);
+		if (packageCount > 0) {
+			$card.find('.aidedemodataimport-card__package-hint').text(
+				'Curated package: ' +
+					packageCount +
+					'. Counts above that are generated dynamically (up to ' +
+					total +
+					'). Images load from Aide CDN.'
+			);
+		}
 
 		$card.find('.aidedemodataimport-card__imported').text(
 			importedTpl.replace('%1$d', String(imported)).replace('%2$d', String(total))

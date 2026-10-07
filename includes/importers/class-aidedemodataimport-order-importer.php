@@ -86,7 +86,7 @@ class Aide_Demo_Data_Import_Order_Importer extends Aide_Demo_Data_Import_Importe
 	/**
 	 * {@inheritdoc}
 	 */
-	public function get_total()
+	public function get_package_total()
 	{
 		return count($this->get_items());
 	}
@@ -129,21 +129,21 @@ class Aide_Demo_Data_Import_Order_Importer extends Aide_Demo_Data_Import_Importe
 	/**
 	 * Pending (not yet imported) orders.
 	 *
+	 * @param int   $limit   Max items.
+	 * @param array $context Generator context with product/customer demo IDs.
 	 * @return array
 	 */
-	private function get_pending_items()
+	private function get_pending_items($limit = 10, $context = array())
 	{
-		$pending = array();
-		foreach ($this->get_items() as $item) {
-			$demo_id = isset($item['id']) ? sanitize_text_field($item['id']) : '';
-			if ('' === $demo_id) {
-				continue;
-			}
-			if (!$this->find_order($demo_id)) {
-				$pending[] = $item;
-			}
-		}
-		return $pending;
+		return $this->collect_next_pending_items(
+			$limit,
+			function ($item) {
+				$demo_id = isset($item['id']) ? sanitize_text_field($item['id']) : '';
+				return ('' === $demo_id) || (bool) $this->find_order($demo_id);
+			},
+			$this->get_items(),
+			$context
+		);
 	}
 
 	/**
@@ -151,6 +151,7 @@ class Aide_Demo_Data_Import_Order_Importer extends Aide_Demo_Data_Import_Importe
 	 */
 	public function import_batch($offset, $limit)
 	{
+		unset($offset);
 		if (!aidedemodataimport_is_woocommerce_active()) {
 			return array(
 				'imported'  => 0,
@@ -172,9 +173,6 @@ class Aide_Demo_Data_Import_Order_Importer extends Aide_Demo_Data_Import_Importe
 			);
 		}
 
-		$items        = $this->get_pending_items();
-		$total        = count($items);
-		$slice        = array_slice($items, $offset, $limit);
 		$result       = $this->empty_result(0, false);
 		$id_map       = aidedemodataimport_get_id_map('orders');
 		$product_map  = aidedemodataimport_get_id_map('products');
@@ -199,6 +197,12 @@ class Aide_Demo_Data_Import_Order_Importer extends Aide_Demo_Data_Import_Importe
 				'processed' => 0,
 			);
 		}
+
+		$context = array(
+			'product_demo_ids'  => array_keys($product_map),
+			'customer_demo_ids' => array_keys($customer_map),
+		);
+		$slice   = $this->get_pending_items($limit, $context);
 
 		if (empty($slice)) {
 			$result['done'] = true;
@@ -319,8 +323,7 @@ class Aide_Demo_Data_Import_Order_Importer extends Aide_Demo_Data_Import_Importe
 		}
 
 		aidedemodataimport_set_id_map('orders', $id_map);
-		$next           = $offset + $limit;
-		$result['done'] = $next >= $total;
+		$result['done'] = count($slice) < $limit || $this->count_pending() < 1;
 
 		if ($result['done']) {
 			$this->record_last_run(

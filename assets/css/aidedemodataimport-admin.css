@@ -172,6 +172,13 @@
 	background: linear-gradient(90deg, #2271b1, #00a32a);
 }
 
+.aidedemodataimport-card__package-hint {
+	margin: 0;
+	font-size: 12px;
+	line-height: 1.45;
+	color: #646970;
+}
+
 /* Meta */
 .aidedemodataimport-card__meta-line {
 	margin: 0;

@@ -40,7 +40,7 @@ $log        = isset($view_data['log']) ? $view_data['log'] : array();
 				<tr>
 					<th scope="col"><?php echo esc_html__('Content type', 'aidedemodataimport'); ?></th>
 					<th scope="col"><?php echo esc_html__('Already imported', 'aidedemodataimport'); ?></th>
-					<th scope="col"><?php echo esc_html__('Available', 'aidedemodataimport'); ?></th>
+					<th scope="col"><?php echo esc_html__('Max', 'aidedemodataimport'); ?></th>
 					<th scope="col"><?php echo esc_html__('Remaining', 'aidedemodataimport'); ?></th>
 					<th scope="col"><?php echo esc_html__('Last run', 'aidedemodataimport'); ?></th>
 				</tr>
@@ -83,9 +83,10 @@ $log        = isset($view_data['log']) ? $view_data['log'] : array();
 			$deps           = $importer->get_dependencies();
 			$imported       = isset($status['imported']) ? (int) $status['imported'] : 0;
 			$total          = isset($status['total']) ? (int) $status['total'] : 0;
+			$package        = isset($status['package']) ? (int) $status['package'] : (int) $importer->get_package_total();
 			$remaining      = isset($status['remaining']) ? (int) $status['remaining'] : max(0, $total - $imported);
 			$qty_max        = max(0, $remaining);
-			$default_count  = $qty_max > 0 ? min(10, $qty_max) : 0;
+			$default_count  = $qty_max > 0 ? min(10, min($package > 0 ? $package : 10, $qty_max)) : 0;
 			$progress_pct   = $total > 0 ? min(100, round(($imported / $total) * 100)) : 0;
 			$card_class     = 'aidedemodataimport-card';
 			if (!$available) {
@@ -122,10 +123,20 @@ $log        = isset($view_data['log']) ? $view_data['log'] : array();
 						<span class="aidedemodataimport-stat__label"><?php echo esc_html__('Remaining', 'aidedemodataimport'); ?></span>
 					</div>
 					<div class="aidedemodataimport-stat">
-						<span class="aidedemodataimport-stat__value"><?php echo esc_html((string) $total); ?></span>
-						<span class="aidedemodataimport-stat__label"><?php echo esc_html__('In package', 'aidedemodataimport'); ?></span>
+						<span class="aidedemodataimport-stat__value aidedemodataimport-card__total-value"><?php echo esc_html((string) $total); ?></span>
+						<span class="aidedemodataimport-stat__label"><?php echo esc_html__('Max', 'aidedemodataimport'); ?></span>
 					</div>
 				</div>
+				<p class="aidedemodataimport-card__package-hint">
+					<?php
+					printf(
+						/* translators: 1: curated package count, 2: max import count */
+						esc_html__('Curated package: %1$d. Counts above that are generated dynamically (up to %2$d). Images load from Aide CDN.', 'aidedemodataimport'),
+						absint($package),
+						absint($total)
+					);
+					?>
+				</p>
 
 				<div class="aidedemodataimport-card__progress" title="<?php echo esc_attr((string) $progress_pct); ?>%">
 					<span class="aidedemodataimport-card__progress-fill" style="width: <?php echo esc_attr((string) $progress_pct); ?>%;"></span>

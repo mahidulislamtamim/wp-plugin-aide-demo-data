@@ -30,6 +30,90 @@ function aidedemodataimport_get_demo_data_path($relative = '')
 }
 
 /**
+ * Base URL for remote demo images (avatars, media, product photos).
+ *
+ * @return string Trailing-slashed URL.
+ */
+function aidedemodataimport_demo_images_base_url()
+{
+	$url = apply_filters(
+		'aidedemodataimport_demo_images_base_url',
+		'https://wp.aide247.com/aidedemodataimport/demo-images/'
+	);
+
+	return trailingslashit(esc_url_raw($url));
+}
+
+/**
+ * Hostnames allowed for remote demo image downloads.
+ *
+ * @return string[]
+ */
+function aidedemodataimport_allowed_demo_image_hosts()
+{
+	$hosts = apply_filters(
+		'aidedemodataimport_allowed_demo_image_hosts',
+		array('wp.aide247.com')
+	);
+
+	return array_values(
+		array_filter(
+			array_map(
+				static function ($host) {
+					return strtolower(sanitize_text_field((string) $host));
+				},
+				(array) $hosts
+			)
+		)
+	);
+}
+
+/**
+ * Build absolute demo image URL from a relative path (e.g. media/product-01.jpg).
+ *
+ * @param string $relative Relative path under the CDN root.
+ * @return string|WP_Error
+ */
+function aidedemodataimport_demo_image_url($relative)
+{
+	$relative = str_replace('\\', '/', (string) $relative);
+	$relative = ltrim($relative, '/');
+
+	if ('' === $relative || false !== strpos($relative, '..')) {
+		return new WP_Error(
+			'invalid_demo_path',
+			__('Invalid demo media path.', 'aidedemodataimport')
+		);
+	}
+
+	// Already a full URL — validate host.
+	if (preg_match('#^https?://#i', $relative)) {
+		$parts = wp_parse_url($relative);
+		$host  = isset($parts['host']) ? strtolower($parts['host']) : '';
+		if (!$host || !in_array($host, aidedemodataimport_allowed_demo_image_hosts(), true)) {
+			return new WP_Error(
+				'disallowed_host',
+				__('Demo image host is not allowed.', 'aidedemodataimport')
+			);
+		}
+		return esc_url_raw($relative);
+	}
+
+	return aidedemodataimport_demo_images_base_url() . $relative;
+}
+
+/**
+ * Maximum records that can be imported per type (static + dynamically generated).
+ *
+ * @return int
+ */
+function aidedemodataimport_max_import_total()
+{
+	$max = (int) apply_filters('aidedemodataimport_max_import_total', 5000);
+	return max(100, min(20000, $max));
+}
+
+/**
  * Resolve a demo-data relative path safely (must stay inside demo-data/).
  *
  * @param string $relative Relative path inside demo-data/.
@@ -183,7 +267,8 @@ function aidedemodataimport_clear_id_map($type)
  */
 function aidedemodataimport_batch_size()
 {
-	$size = (int) apply_filters('aidedemodataimport_import_batch_size', 10);
+	// Smaller default — remote image downloads are slower than local copies.
+	$size = (int) apply_filters('aidedemodataimport_import_batch_size', 5);
 	return max(1, min(50, $size));
 }
 

@@ -113,7 +113,8 @@ class Aide_Demo_Data_Import_Ajax
 	{
 		// Nonce verified in route() before this method runs.
 		// phpcs:ignore WordPress.Security.NonceVerification.Missing
-		return isset($_POST['count']) ? absint(wp_unslash($_POST['count'])) : 0;
+		$count = isset($_POST['count']) ? absint(wp_unslash($_POST['count'])) : 0;
+		return min($count, (int) aidedemodataimport_max_import_total());
 	}
 
 	/**

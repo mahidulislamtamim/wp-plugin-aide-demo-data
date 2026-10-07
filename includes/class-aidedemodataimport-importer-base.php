@@ -70,11 +70,23 @@ abstract class Aide_Demo_Data_Import_Importer_Base
 	}
 
 	/**
-	 * Total items in demo data.
+	 * Maximum importable records (static package + dynamic).
 	 *
 	 * @return int
 	 */
-	abstract public function get_total();
+	public function get_total()
+	{
+		$package = (int) $this->get_package_total();
+		$max     = (int) aidedemodataimport_max_import_total();
+		return max($package, $max);
+	}
+
+	/**
+	 * Count of curated records in the static JSON package.
+	 *
+	 * @return int
+	 */
+	abstract public function get_package_total();
 
 	/**
 	 * Import one batch of pending (not-yet-imported) items.
@@ -100,7 +112,7 @@ abstract class Aide_Demo_Data_Import_Importer_Base
 	abstract public function count_imported();
 
 	/**
-	 * How many package items are still not imported.
+	 * How many records can still be imported (up to max total).
 	 *
 	 * @return int
 	 */
@@ -119,16 +131,84 @@ abstract class Aide_Demo_Data_Import_Importer_Base
 		$option_key = 'aidedemodataimport_last_' . $this->get_type();
 		$last       = get_option($option_key, array());
 		$total      = (int) $this->get_total();
+		$package    = (int) $this->get_package_total();
 		$imported   = (int) $this->count_imported();
 
 		return array(
 			'total'      => $total,
+			'package'    => $package,
 			'imported'   => $imported,
 			'remaining'  => max(0, $total - $imported),
 			'available'  => $this->is_available(),
 			'last_run'   => isset($last['time']) ? $last['time'] : '',
 			'last_stats' => isset($last['stats']) ? $last['stats'] : array(),
 		);
+	}
+
+	/**
+	 * Build a static or dynamically generated item for a 0-based index.
+	 *
+	 * @param int   $index        Zero-based index.
+	 * @param array $static_items Static package rows.
+	 * @param array $context      Extra generator context.
+	 * @return array
+	 */
+	protected function build_item_at_index($index, $static_items, $context = array())
+	{
+		$index = max(0, (int) $index);
+		if (isset($static_items[ $index ]) && is_array($static_items[ $index ])) {
+			return $static_items[ $index ];
+		}
+
+		return Aide_Demo_Data_Import_Dynamic_Generator::make(
+			$this->get_type(),
+			$index + 1,
+			$static_items,
+			$context
+		);
+	}
+
+	/**
+	 * Collect the next pending items without materializing the full max list.
+	 *
+	 * @param int      $limit         How many pending items to return.
+	 * @param callable $exists_cb     function(array $item): bool — true if already imported.
+	 * @param array    $static_items  Static package.
+	 * @param array    $context       Generator context.
+	 * @return array
+	 */
+	protected function collect_next_pending_items($limit, $exists_cb, $static_items, $context = array())
+	{
+		$limit    = max(1, (int) $limit);
+		$max      = (int) $this->get_total();
+		$imported = (int) $this->count_imported();
+		$start    = max(0, $imported - 10);
+		$pending  = array();
+		$scanned  = 0;
+		$cap      = max($limit * 40, 200);
+
+		for ($pass = 0; $pass < 2 && count($pending) < $limit; $pass++) {
+			$from = (0 === $pass) ? $start : 0;
+			for ($i = $from; $i < $max && count($pending) < $limit; $i++) {
+				$item = $this->build_item_at_index($i, $static_items, $context);
+				if (!$exists_cb($item)) {
+					$pending[] = $item;
+				}
+				++$scanned;
+				if ($scanned > $cap && empty($pending) && 0 === $pass) {
+					break;
+				}
+				if ($scanned > $max + $limit) {
+					break 2;
+				}
+			}
+			if (!empty($pending) || 0 === $start) {
+				break;
+			}
+			$scanned = 0;
+		}
+
+		return $pending;
 	}
 
 	/**

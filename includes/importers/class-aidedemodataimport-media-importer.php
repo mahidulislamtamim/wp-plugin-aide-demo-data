@@ -43,7 +43,7 @@ class Aide_Demo_Data_Import_Media_Importer extends Aide_Demo_Data_Import_Importe
 	 */
 	public function get_description()
 	{
-		return __('Import sample images used by demo posts and products.', 'aidedemodataimport');
+		return __('Import sample images from the Aide CDN (used by demo posts).', 'aidedemodataimport');
 	}
 
 	/**
@@ -70,43 +70,73 @@ class Aide_Demo_Data_Import_Media_Importer extends Aide_Demo_Data_Import_Importe
 	/**
 	 * {@inheritdoc}
 	 */
-	public function get_total()
+	public function get_package_total()
 	{
 		return count($this->get_items());
 	}
 
 	/**
-	 * Sideload a local file into the media library.
+	 * Sideload a demo image (remote CDN first, local demo-data fallback).
 	 *
-	 * @param string $relative Relative path under demo-data/.
+	 * @param string $relative Relative path under demo images / demo-data, or absolute URL.
 	 * @param string $title    Attachment title.
 	 * @return int|WP_Error Attachment ID.
 	 */
 	public static function sideload_file($relative, $title = '')
 	{
-		$absolute = aidedemodataimport_resolve_safe_demo_path($relative);
-		if (is_wp_error($absolute)) {
-			return $absolute;
-		}
-
 		require_once ABSPATH . 'wp-admin/includes/file.php';
 		require_once ABSPATH . 'wp-admin/includes/media.php';
 		require_once ABSPATH . 'wp-admin/includes/image.php';
 
-		$tmp = wp_tempnam(basename($absolute));
-		if (!$tmp) {
-			return new WP_Error('tmp_failed', __('Could not create temporary file.', 'aidedemodataimport'));
+		$tmp      = '';
+		$filename = '';
+
+		$url = aidedemodataimport_demo_image_url($relative);
+		if (!is_wp_error($url)) {
+			$downloaded = download_url($url, 30);
+			if (!is_wp_error($downloaded)) {
+				$tmp      = $downloaded;
+				$filename = basename(wp_parse_url($url, PHP_URL_PATH));
+			}
 		}
 
-		// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_copy -- Local copy for sideload.
-		if (!copy($absolute, $tmp)) {
-			// phpcs:ignore WordPress.WP.AlternativeFunctions.unlink_unlink
-			@unlink($tmp);
-			return new WP_Error('copy_failed', __('Could not copy media file.', 'aidedemodataimport'));
+		// Local fallback when CDN is unreachable or path is local-only.
+		if ('' === $tmp) {
+			$absolute = aidedemodataimport_resolve_safe_demo_path($relative);
+			if (is_wp_error($absolute)) {
+				if (is_wp_error($url)) {
+					return $url;
+				}
+				return new WP_Error(
+					'download_failed',
+					sprintf(
+						/* translators: %s: relative image path */
+						__('Could not download demo image: %s', 'aidedemodataimport'),
+						$relative
+					)
+				);
+			}
+
+			$tmp = wp_tempnam(basename($absolute));
+			if (!$tmp) {
+				return new WP_Error('tmp_failed', __('Could not create temporary file.', 'aidedemodataimport'));
+			}
+
+			// phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_copy -- Local copy for sideload.
+			if (!copy($absolute, $tmp)) {
+				// phpcs:ignore WordPress.WP.AlternativeFunctions.unlink_unlink
+				@unlink($tmp);
+				return new WP_Error('copy_failed', __('Could not copy media file.', 'aidedemodataimport'));
+			}
+			$filename = basename($absolute);
+		}
+
+		if ('' === $filename) {
+			$filename = 'demo-image.jpg';
 		}
 
 		$file_array = array(
-			'name'     => basename($absolute),
+			'name'     => sanitize_file_name($filename),
 			'tmp_name' => $tmp,
 		);
 
@@ -123,21 +153,19 @@ class Aide_Demo_Data_Import_Media_Importer extends Aide_Demo_Data_Import_Importe
 	/**
 	 * Pending (not yet imported) media items.
 	 *
+	 * @param int $limit Max items to collect.
 	 * @return array
 	 */
-	private function get_pending_items()
+	private function get_pending_items($limit = 10)
 	{
-		$pending = array();
-		foreach ($this->get_items() as $item) {
-			$demo_id = isset($item['id']) ? sanitize_text_field($item['id']) : '';
-			if ('' === $demo_id) {
-				continue;
-			}
-			if (!aidedemodataimport_find_post_by_demo_id('attachment', $demo_id)) {
-				$pending[] = $item;
-			}
-		}
-		return $pending;
+		return $this->collect_next_pending_items(
+			$limit,
+			static function ($item) {
+				$demo_id = isset($item['id']) ? sanitize_text_field($item['id']) : '';
+				return ('' === $demo_id) || (bool) aidedemodataimport_find_post_by_demo_id('attachment', $demo_id);
+			},
+			$this->get_items()
+		);
 	}
 
 	/**
@@ -145,11 +173,10 @@ class Aide_Demo_Data_Import_Media_Importer extends Aide_Demo_Data_Import_Importe
 	 */
 	public function import_batch($offset, $limit)
 	{
-		$items   = $this->get_pending_items();
-		$total   = count($items);
-		$slice   = array_slice($items, $offset, $limit);
-		$result  = $this->empty_result(0, false);
-		$id_map  = aidedemodataimport_get_id_map('media');
+		unset($offset);
+		$slice  = $this->get_pending_items($limit);
+		$result = $this->empty_result(0, false);
+		$id_map = aidedemodataimport_get_id_map('media');
 
 		if (empty($slice)) {
 			$result['done'] = true;
@@ -202,9 +229,7 @@ class Aide_Demo_Data_Import_Media_Importer extends Aide_Demo_Data_Import_Importe
 		}
 
 		aidedemodataimport_set_id_map('media', $id_map);
-
-		$next = $offset + $limit;
-		$result['done'] = $next >= $total;
+		$result['done'] = count($slice) < $limit || $this->count_pending() < 1;
 
 		if ($result['done']) {
 			$this->record_last_run(

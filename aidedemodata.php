@@ -27,6 +27,7 @@ define('AIDEDEMODATAIMPORT_DEMO_KEY', 'aidedemodataimport');
 
 require_once AIDEDEMODATAIMPORT_PATH . 'includes/helpers/aidedemodataimport-helpers.php';
 require_once AIDEDEMODATAIMPORT_PATH . 'includes/class-aidedemodataimport-installer.php';
+require_once AIDEDEMODATAIMPORT_PATH . 'includes/class-aidedemodataimport-dynamic-generator.php';
 require_once AIDEDEMODATAIMPORT_PATH . 'includes/class-aidedemodataimport-importer-base.php';
 require_once AIDEDEMODATAIMPORT_PATH . 'includes/class-aidedemodataimport-importer-registry.php';
 require_once AIDEDEMODATAIMPORT_PATH . 'includes/class-aidedemodataimport-ajax.php';
